@@ -1,18 +1,18 @@
 package GYM;
-public class Coach{
-    private final String name;
-    private final int age;
+
+import Data.Person;
+import Data.Subscription;
+
+public class Coach extends Person {
     private int workingHours;
-    public Coach(int age,String name,int workingHours){
-        this.name = name;
-        this.age  = age;
-        this.workingHours = Math.min(workingHours, 10);
-    }
+    Customer[] customers ;
+   public Coach(int id, String name, String gender, String address,
+                String number, String email, int workingHours){
+       super(id,name,gender,address,number,email);
+       this.workingHours = Math.min(workingHours, 10);
+   }
     public void getName(){
-        System.out.println(name);
-    }
-    public void getAge(){
-        System.out.println(age);
+        System.out.println(Name);
     }
     public void getWorkingHours(){
         System.out.println(workingHours);

@@ -1,5 +1,5 @@
+package GYM;
 import java.util.Date;
-
 public class InBody {
     private Date date;
     private float height;

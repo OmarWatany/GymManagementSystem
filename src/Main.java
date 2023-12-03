@@ -1,5 +1,5 @@
 import java.util.Date;
-import GYM.Coach;
+import GYM.*;
 
 public class Main {
     public static void main(String[] args){
