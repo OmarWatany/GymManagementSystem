@@ -1,8 +1,8 @@
-package GYM;
+package Data;
 
 public abstract  class Person{
     int ID;
-    String Name,Gender,Address,Phone_Number,Email;
+    protected String Name,Gender,Address,Phone_Number,Email;
     public Person(int id,String name,String gender, String address,String phone_number,String email){
         ID=id;
         Name=name;
