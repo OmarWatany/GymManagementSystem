@@ -12,5 +12,9 @@ public class Coach{
     public void getAge(){
         System.out.println(age);
     }
+    public void listCustomers(){
+    }
+    public void gitCustomInBody(){
+    }
 }
 
