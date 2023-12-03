@@ -1,3 +1,4 @@
+package GYM;
 public class Coach{
     private final String name;
     private final int age;
