@@ -1,10 +1,10 @@
 package GYM;
 
+import java.util.Date;
 import Data.*;
 
 public class Customer extends Person {
-  public int last_InBody[]= new int[3];
-  public String last_InBody_date;
+  public Date last_InBody_date;
   public Boolean is_Subscribed;
   public InBody[] inBodies;
   public Data.Subscription subscription;
@@ -16,15 +16,17 @@ public class Customer extends Person {
   }
 
 
-  public void set_subscription(bool f){
+  public void set_subscription(Boolean f){
     is_Subscribed=f;
   }
   
-  public InBody get_InBody_info(String date){
+  public InBody get_InBody_info(Date date){
     for (InBody inbody : inBodies){
-      if(date.equal(inbody.date)){
+      if(date.equals(inbody.getDate())){
         return inbody;
       }
     }
+    System.out.println("There is no InBodies registered at this date");
+    return null;
   } 
 }
