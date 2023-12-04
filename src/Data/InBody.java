@@ -1,7 +1,7 @@
-package GYM;
+package Data;
 import java.util.Date;
 public class InBody {
-    private Date date;
+    protected Date date;
     private float height;
     private float totalWeight;
     private float fatMass;
@@ -90,5 +90,7 @@ public class InBody {
         System.out.println("minerals : " + minerals + " Kg" );
         System.out.println("bodyWater : " + bodyWater + " Kg" );
         System.out.println("protein : " + protein + " Kg");
+        System.out.println();
+
     }
 }

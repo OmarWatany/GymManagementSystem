@@ -1,4 +1,4 @@
-package GYM;
+package Persons;
 
 import java.util.Date;
 import Data.*;
@@ -6,7 +6,7 @@ import Data.*;
 public class Customer extends Person {
   public Date last_InBody_date;
   public Boolean is_Subscribed;
-  public InBody[] inBodies;
+  public InBody[] inBodies  = new InBody[6];
   public Data.Subscription subscription;
 
   public Customer(int id,String name,String gender,String address,String number,String email,Subscription subscription){

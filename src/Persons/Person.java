@@ -1,4 +1,4 @@
-package Data;
+package Persons;
 
 public abstract  class Person{
     public int ID;
