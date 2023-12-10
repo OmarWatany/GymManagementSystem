@@ -1,42 +1,33 @@
 package Data;
 import java.util.Date;
+import java.lang.Math;
+import Persons.Customer;
+
 public class InBody {
     protected Date date;
-    private float height;
-    private float totalWeight;
-    private float fatMass;
-    private float minerals;
-    private float bodyWater;
-    private float protein;
+    private float height,  totalWeight,  fatMass, minerals,
+                  bodyWater,  protein,  IS, BMI,leanMass;
+    private float sWeight, sBMI, sLeanMass,sFatMass;
 
-    public InBody(
-            Date date,
-            float height,
-            float totalWeight,
-            float fatMass,
-            float minerals,
-            float bodyWater,
-            float protein) {
+    public InBody( Date date, float height, float fatMass,
+                   float minerals, float bodyWater, float protein) {
         this.date = date;
         this.height = height;
-        this.totalWeight = totalWeight;
         this.fatMass = fatMass;
         this.minerals = minerals;
         this.bodyWater = bodyWater;
         this.protein = protein;
+        this.totalWeight = fatMass + bodyWater + protein + minerals;
+        this.BMI =  (totalWeight / (float) Math.pow(height,2)) ;
     }
 
     public Date getDate() {
         return date;
     }
 
-    public float getHeight() {
-        return height;
-    }
+    public float getHeight() { return height; }
 
-    public float getTotalWeight() {
-        return totalWeight;
-    }
+    public float getTotalWeight() { return totalWeight; }
 
     public float getFatMass() {
         return fatMass;
@@ -62,9 +53,6 @@ public class InBody {
         this.height = height;
     }
 
-    public void setTotalWeight(float totalWeight) {
-        this.totalWeight = totalWeight;
-    }
 
     public void setFatMass(float fatMass) {
         this.fatMass = fatMass;
@@ -78,9 +66,30 @@ public class InBody {
         this.bodyWater = bodyWater;
     }
 
-    public void setProtein(float protein) {
-        this.protein = protein;
+    public void setProtein(float protein) { this.protein = protein; }
+
+    public void setTotalWeight(float totalWeight) {
+        this.totalWeight = fatMass + bodyWater + protein + minerals;
     }
+
+    public void setStandards(Customer customer){
+        switch (customer.gender){
+            case MALE:
+                this.sBMI = 22F;
+                this.sWeight = this.sBMI * (float) Math.pow(this.height,2);
+                this.sFatMass = this.sWeight * 0.15F ;
+                break;
+            case FEMALE:
+                this.sBMI = 21.5F;
+                this.sWeight = this.sBMI * (float) Math.pow(this.height,2);
+                this.sFatMass = this.sWeight * 0.23F ;
+                break;
+        }
+    }
+
+   public void GetInBodyWeightControl(Customer customer) {
+        setStandards(customer);
+   }
 
     public void displayInformation(){
         System.out.println("date : " + date );
@@ -91,6 +100,5 @@ public class InBody {
         System.out.println("bodyWater : " + bodyWater + " Kg" );
         System.out.println("protein : " + protein + " Kg");
         System.out.println();
-
     }
 }
