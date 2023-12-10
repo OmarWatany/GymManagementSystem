@@ -3,11 +3,13 @@ import Data.*;
 
 public class Coach extends Person {
     private int workingHours;
-    public Customer[] customers = new Customer[10];
+    public int salary;
+    public static Customer[] customers = new Customer[10];
     public Coach(int id, String name, Gender gender, String address,
-                 String number, String email, int workingHours){
+                 String number, String email, int workingHours,int salary){
         super(id,name,gender,address,number,email);
         this.workingHours = Math.min(workingHours, 10);
+        this.salary=salary;
     }
     public void getName(){
         System.out.println(Name);
@@ -19,6 +21,12 @@ public class Coach extends Person {
         System.out.println(workingHours);
     }
     public void listCustomers(){
+    }
+    public int coach_getId(){
+        return ID;
+    }
+    public int getSalary(){
+        return salary;
     }
 
     public void getCustomerInBodyHistory(String name){

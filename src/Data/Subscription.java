@@ -1,5 +1,8 @@
 package Data;
 
+import java.util.Date;
+
 public class Subscription {
-    private int customerID,CoachID;
+    public int customerID,CoachID,price;
+    public String subscription_date;
 }

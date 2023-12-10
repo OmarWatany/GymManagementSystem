@@ -13,6 +13,9 @@ public class Customer extends Person {
     is_Subscribed=true;
     this.subscription=subscription;
   }
+  public int customer_getId(){
+    return ID;
+  }
 
 
   public void set_subscription(Boolean f){
