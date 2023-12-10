@@ -1,5 +1,4 @@
 package Persons;
-
 import java.util.Date;
 import Data.*;
 
@@ -9,7 +8,7 @@ public class Customer extends Person {
   public InBody[] inBodies  = new InBody[6];
   public Data.Subscription subscription;
 
-  public Customer(int id,String name,String gender,String address,String number,String email,Subscription subscription){
+  public Customer(int id,String name,Gender gender,String address,String number,String email,Subscription subscription){
     super(id,name,gender,address,number,email);
     is_Subscribed=true;
     this.subscription=subscription;

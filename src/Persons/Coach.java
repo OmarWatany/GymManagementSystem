@@ -1,11 +1,10 @@
 package Persons;
-
 import Data.*;
 
 public class Coach extends Person {
     private int workingHours;
     public Customer[] customers = new Customer[10];
-    public Coach(int id, String name, String gender, String address,
+    public Coach(int id, String name, Gender gender, String address,
                  String number, String email, int workingHours){
         super(id,name,gender,address,number,email);
         this.workingHours = Math.min(workingHours, 10);
