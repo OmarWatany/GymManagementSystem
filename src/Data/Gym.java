@@ -1,14 +1,16 @@
 package Data;
 
 import Persons.Coach;
+import java.util.ArrayList;
 
 public class Gym {
     public String Name;
     public String Address;
     public int PhoneNumber;
-    public Coach[] coaches = new Coach[10];
-    public Subscription[] Subscriptions = new Subscription[10];
-    public Equipment[] Equipments = new Equipment[50];
+
+    public ArrayList<Coach> coaches = new ArrayList<>();
+    public ArrayList<Subscription> Subscriptions = new ArrayList<>();
+    public ArrayList<Equipment> Equipments = new ArrayList<>();
 
     public Gym(String name,String address,int num){
         Name = name;
