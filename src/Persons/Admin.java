@@ -11,15 +11,14 @@ public class Admin {
     public String Password;
     public String Name;
 
-    public Admin(String uname, String pass, String name) {
+    public Admin(String uname, String pass) {
         Username = uname;
         Password = pass;
-        Name = name;
     }
 
     public void AddCustomer( int id, String name, Gender gender, String address, String number, String email, Subscription subscription) {
         Gym.Customers.add(new Customer(id, name, gender, address, number, email, subscription));
-        System.out.println("Customer added.");
+        System.out.println("Customer record added.");
     }
 
     public void deleteCustomer( int customerId) {
@@ -28,7 +27,7 @@ public class Admin {
             Customer customer = iterator.next();
             if (customer.customer_getId() == customerId) {
                 iterator.remove(); // Remove the customer with the matching ID
-                System.out.println("Customer with ID " + customerId + " deleted.");
+                System.out.println("Customer with ID " + customerId + " record deleted.");
                 return; // Assuming each ID is unique, we can exit the loop after deletion
             }
         }
@@ -37,7 +36,7 @@ public class Admin {
     public void AddCoach( int id, String name, Gender gender, String address,
                          String number, String email, int workingHours,int salary) {
         Gym.Coaches.add(new Coach(id, name, gender, address, number, email, workingHours,salary));
-        System.out.println("Coach added.");
+        System.out.println("Coach record added.");
     }
 
     public void deleteCoach( int coachId) {
@@ -46,7 +45,7 @@ public class Admin {
             Coach coach = iterator.next();
             if (coach.coach_getId() == coachId) {
                 iterator.remove(); // Remove the customer with the matching ID
-                System.out.println("Coach with ID " + coachId + " deleted.");
+                System.out.println("Coach with ID " + coachId + " record deleted.");
                 return; // Assuming each ID is unique, we can exit the loop after deletion
             }
         }
@@ -54,7 +53,7 @@ public class Admin {
 
     public void AddEquipment(String name, String category, int quantity) {
         Gym.Equipments.add(new Equipment(name, category, quantity));
-        System.out.println("Equipment added.");
+        System.out.println("Equipment record added.");
     }
 
     public void deleteEquipment(String name) {
@@ -63,22 +62,30 @@ public class Admin {
             Equipment equipment = iterator.next();
             if (equipment.getName().equals(name)) {
                 iterator.remove();
-                System.out.println("Equipment with name " + name + " deleted.");
+                System.out.println("Equipment with name " + name + " record deleted.");
                 return;
             }
         }
     }
 
-    public void show_sub_history(Customer customer){
-        System.out.println(customer.subscription.subscription_date);
+    public void show_sub_history(String cname){
+        System.out.println("History: ");
+        for (Customer customer : Gym.Customers) {
+            if (customer.Name.equals(cname))
+                System.out.println(customer.subscription.subscription_date);
+        }
     }
 
     public void all_coach_customers(String cname){
-        System.out.println("Coaches:");
+        System.out.println("Customers assigned to "+cname+" :");
         for (Coach coach : Gym.Coaches) {
             if (coach.Name.equals(cname))
-                for (int i =0;i<10;i++){
-                System.out.println(Coach.customers[i].Name);
+                for (int i =0;i<10;i++) {
+                    if (Coach.customers[i] == null) {
+                        break;
+                    }
+
+                    System.out.println(Coach.customers[i].Name);
             }
         }
     }
