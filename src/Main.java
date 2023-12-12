@@ -72,7 +72,6 @@ public class Main {
                             if(key==1){
                                 //add function
                                 admin.AddCustomer();
-                                continue;
                             }
                             else if(key==2) {
                                 //delete function
@@ -101,44 +100,7 @@ public class Main {
                             key = scan.nextInt();
                             if(key==1){
                                 //add function
-                                int cid;
-                                String cname;
-                                Gender cgender;
-                                String caddress;
-                                String cnumber;
-                                String cemail;
-                                int whours;
-                                int sal;
-                                System.out.println("  Enter Coach details");
-                                System.out.print("ID: ");
-                                cid = scan.nextInt();
-                                System.out.print("Name: ");
-                                cname = scan.next();
-                                System.out.print("MALE or FEMALE");
-                                String Gcheck;
-                                Gcheck = scan.next();
-                                if(Gcheck.equals("male")||Gcheck.equals("MALE")) {
-                                    cgender = MALE;
-                                }
-                                else if(Gcheck.equals("female")||Gcheck.equals("FEMALE")) {
-                                    cgender = FEMALE;
-                                }
-                                else{
-                                    System.out.println("Invalid entry, Try again.");
-                                    continue;
-                                }
-                                System.out.print("Address: ");
-                                caddress = scan.next();
-                                System.out.print("Phone Number: ");
-                                cnumber = scan.next();
-                                System.out.print("email: ");
-                                cemail = scan.next();
-                                System.out.print("Working Hours: ");
-                                whours = scan.nextInt();
-                                System.out.print("Salary: ");
-                                sal = scan.nextInt();
-                                admin.AddCoach(cid,cname,cgender,caddress,cnumber,cemail,whours,sal);
-                                continue;
+                                admin.AddCoach();
                             }
                             else if(key==2) {
                                 //delete function
@@ -168,18 +130,7 @@ public class Main {
                             key = scan.nextInt();
                             if(key==1){
                                 //add function
-                                int quantity;
-                                String ename;
-                                String ecategory;
-                                System.out.println("  Enter Equipment details");
-                                System.out.print("Equipment name: ");
-                                ename = scan.next();
-                                System.out.print("category: ");
-                                ecategory = scan.next();
-                                System.out.print("Quantity: ");
-                                quantity = scan.nextInt();
-                                admin.AddEquipment(ename,ecategory,quantity);
-                                continue;
+                                admin.AddEquipment();
                             }
                             else if(key==2) {
                                 //delete function
