@@ -1,10 +1,14 @@
 package Persons;
+import java.util.Scanner;
 
 import java.util.ArrayList;
 import Data.*;
 import Data.Subscription;
 import java.util.Iterator;
 import java.util.Date;
+
+import static Data.Gender.FEMALE;
+import static Data.Gender.MALE;
 
 public class Admin {
     public String Username;
@@ -16,8 +20,41 @@ public class Admin {
         Password = pass;
     }
 
-    public void AddCustomer( int id, String name, Gender gender, String address, String number, String email, Subscription subscription) {
-        Gym.Customers.add(new Customer(id, name, gender, address, number, email, subscription));
+    public void AddCustomer() {
+        Subscription sub = new Subscription(1234,2342);
+        Scanner scan = new Scanner(System.in);
+        int id;
+        String name;
+        Gender gender;
+        String address;
+        String number;
+        String email;
+        Subscription subscription;
+        System.out.println("  Enter Customer details");
+        System.out.print("ID: ");
+        id = scan.nextInt();
+        System.out.print("Name: ");
+        name = scan.next();
+        System.out.print("MALE or FEMALE");
+        String Gcheck;
+        Gcheck = scan.next();
+        if(Gcheck.equals("male")||Gcheck.equals("MALE")) {
+            gender = MALE;
+        }
+        else if(Gcheck.equals("female")||Gcheck.equals("FEMALE")) {
+            gender = FEMALE;
+        }
+        else{
+            gender = MALE;
+            System.out.println("Invalid entry, Try again.");
+        }
+        System.out.print("Address: ");
+        address = scan.next();
+        System.out.print("Phone Number: ");
+        number = scan.next();
+        System.out.print("email: ");
+        email = scan.next();
+        Gym.Customers.add(new Customer(id , name, gender, address, number, email, sub));
         System.out.println("Customer record added.");
     }
 
