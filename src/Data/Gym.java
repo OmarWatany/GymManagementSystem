@@ -31,7 +31,7 @@ public class Gym {
     public void displayCoaches() {
         System.out.println("Coaches:");
         for (Coach coach : Coaches) {
-            System.out.println(coach.Name);
+            System.out.println(coach.ID+"  "+coach.Name);
         }
         System.out.println("  ");
     }
@@ -55,7 +55,7 @@ public class Gym {
     public void displayCustomers() {
         System.out.println("Customers:");
         for (Customer customer : Customers) {
-            System.out.println(customer.Name);
+            System.out.println(customer.ID+"   "+customer.Name);
         }
         System.out.println("  ");
     }
