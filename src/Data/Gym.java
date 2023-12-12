@@ -62,7 +62,7 @@ public class Gym {
     public static int gettotalprice(){
         int totalprice=0;
         for (Subscription subscription : Subscriptions) {
-            totalprice += subscription.price;
+            //totalprice += subscription.price;
         }
         return totalprice;
     }

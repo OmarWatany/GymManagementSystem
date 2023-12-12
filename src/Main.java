@@ -12,7 +12,7 @@ public class Main {
         // for testing
         Scanner scan = new Scanner(System.in);
         Date date = new Date();
-        Subscription sub = new Subscription();
+        Subscription sub = new Subscription(1234,2342);
         //Admin admin = new Admin("admin","pass");
         Gym gym = new Gym("Mommy Gym","3and ommak",69);
         Customer omar = new Customer(234,"omar",MALE,
@@ -25,7 +25,6 @@ public class Main {
         gym.Coaches.add(ahmed);
         ahmed.customers[0] = omar;
        // ahmed.getCustomerInBodyHistory("omar");
-
 
 
 
@@ -72,37 +71,7 @@ public class Main {
                             key = scan.nextInt();
                             if(key==1){
                                 //add function
-                                int cid;
-                                String cname;
-                                Gender cgender;
-                                String caddress;
-                                String cnumber;
-                                String cemail;
-                                System.out.println("  Enter Customer details");
-                                System.out.print("ID: ");
-                                cid = scan.nextInt();
-                                System.out.print("Name: ");
-                                cname = scan.next();
-                                System.out.print("MALE or FEMALE");
-                                String Gcheck;
-                                Gcheck = scan.next();
-                                if(Gcheck.equals("male")||Gcheck.equals("MALE")) {
-                                    cgender = MALE;
-                                }
-                                else if(Gcheck.equals("female")||Gcheck.equals("FEMALE")) {
-                                    cgender = FEMALE;
-                                }
-                                else{
-                                    System.out.println("Invalid entry, Try again.");
-                                    continue;
-                                }
-                                System.out.print("Address: ");
-                                caddress = scan.next();
-                                System.out.print("Phone Number: ");
-                                cnumber = scan.next();
-                                System.out.print("email: ");
-                                cemail = scan.next();
-                                admin.AddCustomer(cid,cname,cgender,caddress,cnumber,cemail,sub);
+                                admin.AddCustomer();
                                 continue;
                             }
                             else if(key==2) {
