@@ -1,4 +1,5 @@
 package Persons;
+
 import java.util.Scanner;
 
 import java.util.ArrayList;
@@ -7,13 +8,13 @@ import Data.Subscription;
 import java.util.Iterator;
 import java.util.Date;
 
-import static Data.Gender.FEMALE;
-import static Data.Gender.MALE;
+// import static Data.Gender.FEMALE;
+// import static Data.Gender.MALE;
 
 public class Admin {
     public String Username;
     public String Password;
-    public String Name;
+
     Scanner scan = new Scanner(System.in);
 
     public Admin(String uname, String pass) {
@@ -24,7 +25,7 @@ public class Admin {
     public void AddCustomer() {
         int id;
         String name;
-        Gender gender;
+        String gender;
         String address;
         String number;
         String email;
@@ -34,15 +35,15 @@ public class Admin {
         id = scan.nextInt();
         System.out.print("Name: ");
         name = scan.next();
-        while(true) {
-        System.out.print("MALE or FEMALE: ");
-        String Gcheck;
-        Gcheck = scan.next();
+        while (true) {
+            System.out.print("MALE or FEMALE: ");
+            String Gcheck;
+            Gcheck = scan.next();
             if (Gcheck.equals("male") || Gcheck.equals("MALE")) {
-                gender = MALE;
+                gender = "MALE";
                 break;
             } else if (Gcheck.equals("female") || Gcheck.equals("FEMALE")) {
-                gender = FEMALE;
+                gender = "FEMALE";
                 break;
             } else {
                 System.out.println("Invalid entry, Try again.");
@@ -56,11 +57,11 @@ public class Admin {
         System.out.print("email: ");
         email = scan.next();
         sub = getsub(id);
-        Gym.Customers.add(new Customer(id , name, gender, address, number, email, sub));
+        Gym.Customers.add(new Customer(id, name, gender, address, number, email, sub));
         System.out.println("Customer record added.");
     }
 
-    public void deleteCustomer( int customerId) {
+    public void deleteCustomer(int customerId) {
         Iterator<Customer> iterator = Gym.Customers.iterator();
         while (iterator.hasNext()) {
             Customer customer = iterator.next();
@@ -71,7 +72,8 @@ public class Admin {
             }
         }
     }
-    public Subscription getsub(int id){
+
+    public Subscription getsub(int id) {
         int cid;
         System.out.println("Enter subscription detail... ");
         System.out.println("Coach ID: ");
@@ -84,7 +86,7 @@ public class Admin {
     public void AddCoach() {
         int id;
         String name;
-        Gender gender;
+        String gender;
         String address;
         String number;
         String email;
@@ -95,15 +97,15 @@ public class Admin {
         id = scan.nextInt();
         System.out.print("Name: ");
         name = scan.next();
-        while(true) {
+        while (true) {
             System.out.print("MALE or FEMALE");
             String Gcheck;
             Gcheck = scan.next();
             if (Gcheck.equals("male") || Gcheck.equals("MALE")) {
-                gender = MALE;
+                gender = "MALE";
                 break;
             } else if (Gcheck.equals("female") || Gcheck.equals("FEMALE")) {
-                gender = FEMALE;
+                gender = "FEMALE";
                 break;
             } else {
                 System.out.println("Invalid entry, Try again.");
@@ -120,11 +122,11 @@ public class Admin {
         whours = scan.nextInt();
         System.out.print("Salary: ");
         sal = scan.nextInt();
-        Gym.Coaches.add(new Coach(id, name, gender, address, number, email, whours,sal));
+        Gym.Coaches.add(new Coach(id, name, gender, address, number, email, whours, sal));
         System.out.println("Coach record added.");
     }
 
-    public void deleteCoach( int coachId) {
+    public void deleteCoach(int coachId) {
         Iterator<Coach> iterator = Gym.Coaches.iterator();
         while (iterator.hasNext()) {
             Coach coach = iterator.next();
@@ -163,7 +165,7 @@ public class Admin {
         }
     }
 
-    public void show_sub_history(String cname){
+    public void show_sub_history(String cname) {
         System.out.println("History: ");
         for (Customer customer : Gym.Customers) {
             if (customer.Name.equals(cname))
@@ -171,32 +173,32 @@ public class Admin {
         }
     }
 
-    public void all_coach_customers(String cname){
-        System.out.println("Customers assigned to "+cname+" :");
+    public void all_coach_customers(String cname) {
+        System.out.println("Customers assigned to " + cname + " :");
         for (Coach coach : Gym.Coaches) {
             if (coach.Name.equals(cname))
-                for (int i =0;i<10;i++) {
-                    if (Coach.customers[i] == null) {
+                for (int i = 0; i < 10; i++) {
+                    if (coach.Customers.get(i) == null) {
                         break;
                     }
 
-                    System.out.println(Coach.customers[i].Name);
-            }
+                    System.out.println(coach.Customers.get(i).Name);
+                }
         }
     }
 
-    public void show_sub_date(String date){
+    public void show_sub_date(String date) {
         for (Customer customer : Gym.Customers) {
             if (customer.subscription.subscription_date.equals(date))
-                    System.out.println(customer.Name);
+                System.out.println(customer.Name);
 
         }
     }
 
-    public void display_income(){
+    public void display_income() {
         int income;
-        income=Gym.gettotalprice()-Gym.gettotalsalary();
-        System.out.println("total income = "+income);
+        income = Gym.gettotalprice() - Gym.gettotalsalary();
+        System.out.println("total income = " + income);
     }
 
 
