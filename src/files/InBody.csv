@@ -1,0 +1,3 @@
+1,1,2004-02-27,12,23,34,45,33
+
+index,int customerId,Date  date,float height,float fatMass,float minerals,float bodyWater,float protein                

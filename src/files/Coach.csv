@@ -1,0 +1,3 @@
+1,1,islam,male,ma3adi,011,islam@icloud,40,6000,1
+
+index ,int id, String name, String gender, String address,String number, String email, int workingHours, int salary,custemor 1,custemor 2,custemor 3,custemor 4,custemor 5,custemor 6,custemor 7,custemor 8,custemor 9,custemor 10,
