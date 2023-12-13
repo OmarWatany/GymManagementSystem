@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 public class Main {
 
     static Scanner scan = new Scanner(System.in);
+
     public static Person signIn(String type) {
         System.out.println("*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-");
         System.out.println("  Sign in:  ");
@@ -21,14 +22,14 @@ public class Main {
         username = scan.next();
         System.out.print("Password: ");
         password = scan.next();
-        if(type.equals("customer")){
+        if (type.equals("customer")) {
             for (Customer cstmr : Gym.Customers) {
                 if (cstmr.UserName.equals(username) && cstmr.PassWord.equals(password)) {
                     System.out.println("Access granted.");
                     return cstmr;
                 }
             }
-        }else if(type.equals("coach")){
+        } else if (type.equals("coach")) {
             for (Coach coach : Gym.Coaches) {
                 if (coach.UserName.equals(username) && coach.PassWord.equals(password)) {
                     System.out.println("Access granted.");
@@ -44,21 +45,11 @@ public class Main {
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
         Date date = new Date();
-//        Subscription sub = new Subscription(1234, 2342);
         Gym gym = new Gym("Mommy Gym", "3and ommak", 69);
-        Admin admin = new Admin("admin","pass");
+        Admin admin = new Admin("admin", "pass");
         Gym.Admins.add(admin);
 
-//        omar.inBodies.add(0, new InBody(omar.ID, date, 1.5F, 15F, 1F, 10F, 0.5F));
-//        omar.inBodies.add(1, new InBody(omar.ID, date, 1.63F, 18.1F, 3.28F, 35.5F, 9.5F));
-//        Coach ahmed = new Coach();
-//        Gym.Coaches.add(ahmed);
-
-//        ahmed.Customers.add(0, omar);
         readFile(gym);
-//        ahmed.getCustomerInBodyHistory("omar");
-//        omar.inBodies.get(1).displayInformation();
-//        omar.inBodies.get(1).GetInBodyWeightControl(omar);
         // Main loop
         gym.DisplayGymInfo();
 
@@ -74,13 +65,12 @@ public class Main {
 
                 boolean check;
                 // admin loop
-                if (key==1) {
+                if (key == 1) {
                     check = gym.signinadmin();
 
-                    if(check) {
+                    if (check) {
                         System.out.println("Access granted.");
-                    }
-                    else{
+                    } else {
                         System.out.println("Access denied.");
                         System.out.println("Wrong username or password, try again.");
                         continue;
@@ -214,15 +204,12 @@ public class Main {
                             } else if (key == 4) {
                                 // income
                                 admin.display_income();
-                            }
-                            else if (key == 5) {
+                            } else if (key == 5) {
                                 admin.addadmin();
-                            }
-                            else if (key == 6) {
+                            } else if (key == 6) {
                                 // exit or back
                                 break;
-                            }
-                            else {
+                            } else {
                                 System.out.println("Invalid entry, Try again.");
                                 continue;
                             }
@@ -235,21 +222,19 @@ public class Main {
                         continue;
                     }
                 }
-            }
-            else if (key == 2) {
+            } else if (key == 2) {
                 // customer loop
                 Customer customer;
                 System.out.println("*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-");
                 customer = (Customer) signIn("customer");
-                if(customer == null)
+                if (customer == null)
                     continue;
-            }
-            else if (key == 3) {
+            } else if (key == 3) {
                 Coach coach;
                 // coach loop
                 System.out.println("*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-");
                 coach = (Coach) signIn("coach");
-                if(coach == null)
+                if (coach == null)
                     continue;
                 boolean running = true;
                 while (running) {
@@ -262,32 +247,36 @@ public class Main {
                     System.out.println("5. sign out");
                     key = scan.nextInt();
                     Customer customer;
-                    switch (key){
+                    switch (key) {
                         case 1:
                             coach.listCustomers();
                             break;
                         case 2:
                             System.out.print("Enter id: ");
-                            try { key = scan.nextInt(); } catch(InputMismatchException e){
+                            try {
+                                key = scan.nextInt();
+                            } catch (InputMismatchException e) {
                                 System.out.println("Please Enter valid number");
                                 continue;
                             }
                             try {
                                 coach.getCustomer(key).printInBodyHistory();
-                            } catch(NullPointerException e){
+                            } catch (NullPointerException e) {
                                 System.out.println("Couldn't find any");
                                 continue;
                             }
                             break;
                         case 3:
                             System.out.print("Enter id: ");
-                            try { key = scan.nextInt(); } catch(InputMismatchException e){
+                            try {
+                                key = scan.nextInt();
+                            } catch (InputMismatchException e) {
                                 System.out.println("Please Enter valid number");
                                 continue;
                             }
                             try {
                                 coach.getCustomer(key).getInfo();
-                            } catch(NullPointerException e){
+                            } catch (NullPointerException e) {
                                 System.out.println("Couldn't find any");
                                 continue;
                             }
@@ -303,8 +292,7 @@ public class Main {
                             continue;
                     }
                 }
-            }
-            else if (key == 4) {
+            } else if (key == 4) {
                 // exit or back
                 break;
             } else {
@@ -326,12 +314,13 @@ public class Main {
 
                 int planId = Integer.parseInt(values[1]);
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                Date startDate =dateFormat.parse(values[2]);
+                Date startDate = dateFormat.parse(values[2]);
                 int monthlyPlan = Integer.parseInt(values[3]);
                 int numOfMonthsRegistered = Integer.parseInt(values[4]);
                 float price = Float.parseFloat(values[5]);
 
-                MemberShipPlan membershipPlan = new MemberShipPlan(planId,startDate,monthlyPlan,numOfMonthsRegistered,price);
+                MemberShipPlan membershipPlan = new MemberShipPlan(planId, startDate, monthlyPlan,
+                        numOfMonthsRegistered, price);
 
                 gym.MemberShipPlans.add(membershipPlan);
             }
@@ -357,7 +346,6 @@ public class Main {
                 int customerID = Integer.parseInt(values[1]);
                 int coachID = Integer.parseInt(values[2]);
                 int membershipId = Integer.parseInt(values[3]);
-
 
                 MemberShipPlan membershipPlan = null;
                 try {
@@ -400,8 +388,8 @@ public class Main {
 
                 Subscription subscription = null;
                 try {
-                    for (Subscription sub: gym.Subscriptions ) {
-                        if(sub.customerID == customerId)
+                    for (Subscription sub : gym.Subscriptions) {
+                        if (sub.customerID == customerId)
                             subscription = sub;
                     }
                 } catch (NullPointerException e) {
@@ -409,7 +397,7 @@ public class Main {
                 }
 
                 Customer customer = new Customer(customerId, customerName, gender, address, number, email,
-                        subscription,uname,pass);
+                        subscription, uname, pass);
                 Gym.Customers.add(customer);
             }
         } catch (FileNotFoundException e) {
@@ -417,11 +405,11 @@ public class Main {
             System.out.println("Couldn't read file");
         } catch (IOException e) {
             System.out.println("Couldn't read file");
-        } catch (ArrayIndexOutOfBoundsException e ){
+        } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("ToDo sub array e");
         }
 
-        //Read Inbodies into customers' arraylist
+        // Read Inbodies into customers' arraylist
         try {
             String line = "";
             BufferedReader br = new BufferedReader(new FileReader("./src/files/InBody.csv"));
@@ -431,18 +419,18 @@ public class Main {
 
                 int customerId = Integer.parseInt(values[1]);
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                Date date=dateFormat.parse(values[2]);
+                Date date = dateFormat.parse(values[2]);
                 // Parse the string to a Date object
 
-                float height  = Float.parseFloat(values[3]);
-                float fatMass= Float.parseFloat(values[4]);
-                float minerals  = Float.parseFloat(values[5]);
+                float height = Float.parseFloat(values[3]);
+                float fatMass = Float.parseFloat(values[4]);
+                float minerals = Float.parseFloat(values[5]);
                 float bodyWater = Float.parseFloat(values[6]);
-                float protein  = Float.parseFloat(values[7]);
+                float protein = Float.parseFloat(values[7]);
 
                 InBody inBody = new InBody(customerId, date, height, fatMass, minerals, bodyWater, protein);
-                for(int i = 0 ; i < Gym.Customers.size();i++){
-                    if(Gym.Customers.get(i).getId() == customerId)
+                for (int i = 0; i < Gym.Customers.size(); i++) {
+                    if (Gym.Customers.get(i).getId() == customerId)
                         Gym.Customers.get(i).inBodies.add(inBody);
                 }
             }
@@ -475,26 +463,26 @@ public class Main {
                 String uname = values[9];
                 String pass = values[10];
 
-                Coach coach = new Coach(coachId, coachName, gender, address, number, email, workingHours, salary,uname,pass);
+                Coach coach = new Coach(coachId, coachName, gender, address, number, email, workingHours, salary, uname,
+                        pass);
 
                 Gym.Coaches.add(coach);
 
                 // adding customers
                 Customer customer = null;
                 try {
-                    for (Subscription sub: gym.Subscriptions ) {
-                        if(sub.coachID == coachId)
-                            try{
+                    for (Subscription sub : gym.Subscriptions) {
+                        if (sub.coachID == coachId)
+                            try {
                                 customer = sub.getCustomer(sub.customerID);
                                 coach.Customers.add(customer);
-                            } catch (NullPointerException e){
+                            } catch (NullPointerException e) {
                                 System.out.println("Couldn't find customer");
                             }
                     }
                 } catch (NullPointerException e) {
                     System.out.println("Couldn't find subscription");
                 }
-
 
             }
         } catch (FileNotFoundException e) {
@@ -525,7 +513,7 @@ public class Main {
         } catch (ArrayIndexOutOfBoundsException c) {
         }
 
-       try {
+        try {
             String line = "";
             BufferedReader br = new BufferedReader(new FileReader("./src/files/Admin.csv"));
             while ((line = br.readLine()) != null) // returns a Boolean value
@@ -543,6 +531,5 @@ public class Main {
         } catch (ArrayIndexOutOfBoundsException c) {
         }
     }
-
 
 }
