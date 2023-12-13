@@ -16,8 +16,9 @@ public class Main {
         Scanner scan = new Scanner(System.in);
         Date date = new Date();
         Subscription sub = new Subscription(1234, 2342);
-        // Admin admin = new Admin("admin","pass");
         Gym gym = new Gym("Mommy Gym", "3and ommak", 69);
+        Admin admin = new Admin("admin","pass");
+        Gym.Admins.add(admin);
         readFile(gym);
         Customer omar = new Customer(234, "omar", "MALE",
                 "234 st as", "012351235", "omar@email.com", sub);
@@ -42,16 +43,18 @@ public class Main {
             key = scan.nextInt();
             if (key == 1) {
                 // admin loop
-                System.out.println("*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-");
-                System.out.println("  Sign in:  ");
-                String username;
-                String password;
-                System.out.print("Username: ");
-                username = scan.next();
-                System.out.print("Password: ");
-                password = scan.next();
-                Admin admin = new Admin(username, password);
-                System.out.println("Access granted.");
+                if (key==1) {
+                    int check;
+                    check = gym.adminsignin();
+                    if(check==1) {
+                        System.out.println("Access granted.");
+                    }
+                    else{
+                        System.out.println("Access denied.");
+                        System.out.println("Wrong username or password, try again.");
+                        continue;
+                    }
+                }
                 while (true) {
                     System.out.println("*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-");
                     System.out.println("  What would you like to access?");
@@ -148,7 +151,8 @@ public class Main {
                             System.out.println("2. Show all customers assigned to a specific Coach ");
                             System.out.println("3. Show all susbcribed customers at a specific Date ");
                             System.out.println("4. Show total income ");
-                            System.out.println("5. Back ");
+                            System.out.println("5. Add an Admin ");
+                            System.out.println("6. Back");
                             key = scan.nextInt();
                             if (key == 1) {
                                 // history function
@@ -179,15 +183,19 @@ public class Main {
                             } else if (key == 4) {
                                 // income
                                 admin.display_income();
-                            } else if (key == 5) {
+                            }
+                            else if (key == 5) {
+                                admin.addadmin();
+                            }
+                            else if (key == 6) {
                                 // exit or back
                                 break;
-                            } else {
+                            }
+                            else {
                                 System.out.println("Invalid entry, Try again.");
                                 continue;
                             }
                         }
-
                     } else if (key == 5) {
                         // exit or back
                         break;

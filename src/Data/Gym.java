@@ -2,6 +2,7 @@ package Data;
 
 import Persons.*;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Gym {
     public String Name;
@@ -12,6 +13,7 @@ public class Gym {
     public static ArrayList<Equipment> Equipments = new ArrayList<>();
     public static ArrayList<Customer> Customers = new ArrayList<>();
     public static ArrayList<Admin> Admins = new ArrayList<>();
+    Scanner scan = new Scanner(System.in);
 
     public Gym(String name, String address, int num) {
         Name = name;
@@ -80,6 +82,24 @@ public class Gym {
             ;
         }
         return totalsalary;
+    }
+    public int adminsignin() {
+        System.out.println("*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-");
+        System.out.println("  Sign in:  ");
+        String username;
+        String password;
+        int check=0;
+        System.out.print("Username: ");
+        username = scan.next();
+        System.out.print("Password: ");
+        password = scan.next();
+        for (Admin admin : Admins) {
+            if (admin.Username.equals(username) && admin.Password.equals(password)) {
+                check++;
+                break;
+            }
+        }
+        return check;
     }
 
 }

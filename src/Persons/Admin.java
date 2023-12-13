@@ -200,6 +200,16 @@ public class Admin {
         income = Gym.gettotalprice() - Gym.gettotalsalary();
         System.out.println("total income = " + income);
     }
+    public void addadmin(){
+        String username;
+        String password;
+        System.out.println(" ");
+        System.out.println("Enter new Admin username: ");
+        username = scan.next();
+        System.out.println("Enter new Admin password: ");
+        password = scan.next();
+        Gym.Admins.add(new Admin(username,password));
+    }
 
 
 }
