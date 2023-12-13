@@ -29,6 +29,8 @@ public class Admin {
         String address;
         String number;
         String email;
+        String uname;
+        String pass;
         Subscription sub;
         System.out.println("  Enter Customer details");
         System.out.print("ID: ");
@@ -56,8 +58,12 @@ public class Admin {
         number = scan.next();
         System.out.print("email: ");
         email = scan.next();
+        System.out.print("UserName: ");
+        uname = scan.next();
+        System.out.print("PassWord: ");
+        pass = scan.next();
         sub = getsub(id);
-        Gym.Customers.add(new Customer(id, name, gender, address, number, email, sub));
+        Gym.Customers.add(new Customer(id, name, gender, address, number, email, sub,uname,pass));
         System.out.println("Customer record added.");
     }
 
@@ -65,7 +71,7 @@ public class Admin {
         Iterator<Customer> iterator = Gym.Customers.iterator();
         while (iterator.hasNext()) {
             Customer customer = iterator.next();
-            if (customer.customer_getId() == customerId) {
+            if (customer.getId() == customerId) {
                 iterator.remove(); // Remove the customer with the matching ID
                 System.out.println("Customer with ID " + customerId + " record deleted.");
                 return; // Assuming each ID is unique, we can exit the loop after deletion
@@ -78,7 +84,9 @@ public class Admin {
         System.out.println("Enter subscription detail... ");
         System.out.println("Coach ID: ");
         cid = scan.nextInt();
-        Subscription newsub = new Subscription(id, cid);
+        Date date = new Date();
+        MemberShipPlan mem = new MemberShipPlan(32,date,2,3,2342);
+        Subscription newsub = new Subscription(id, cid,mem);
         Gym.Subscriptions.add(newsub);
         return newsub;
     }
@@ -90,6 +98,9 @@ public class Admin {
         String address;
         String number;
         String email;
+        String uname;
+        String pass;
+
         int whours;
         int sal;
         System.out.println("  Enter Coach details");
@@ -122,7 +133,11 @@ public class Admin {
         whours = scan.nextInt();
         System.out.print("Salary: ");
         sal = scan.nextInt();
-        Gym.Coaches.add(new Coach(id, name, gender, address, number, email, whours, sal));
+        System.out.print("UserName: ");
+        uname = scan.next();
+        System.out.print("PassWord: ");
+        pass = scan.next();
+        Gym.Coaches.add(new Coach(id, name, gender, address, number, email, whours, sal,uname,pass));
         System.out.println("Coach record added.");
     }
 
@@ -130,7 +145,7 @@ public class Admin {
         Iterator<Coach> iterator = Gym.Coaches.iterator();
         while (iterator.hasNext()) {
             Coach coach = iterator.next();
-            if (coach.coach_getId() == coachId) {
+            if (coach.getId() == coachId) {
                 iterator.remove(); // Remove the customer with the matching ID
                 System.out.println("Coach with ID " + coachId + " record deleted.");
                 return; // Assuming each ID is unique, we can exit the loop after deletion

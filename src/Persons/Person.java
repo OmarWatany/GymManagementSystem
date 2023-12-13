@@ -2,17 +2,23 @@ package Persons;
 
 import Data.*;
 
+import java.util.Scanner;
+
 public abstract class Person {
     public int ID;
-    public String Name, Address, Phone_Number, Email;
+    public String Name, Address, PhoneNumber, Email,UserName, PassWord;
     public String gender;
 
-    public Person(int id, String name, String gender, String address, String phone_number, String email) {
+    public Person(int id, String name, String gender, String address, String phone_number, String email,String uname,String pass) {
         ID = id;
         Name = name;
         this.gender = gender;
         Address = address;
-        Phone_Number = phone_number;
+        PhoneNumber = phone_number;
         Email = email;
+        UserName = uname;
+        PassWord = pass;
     }
+
+
 }
