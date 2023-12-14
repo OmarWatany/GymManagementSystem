@@ -1,8 +1,5 @@
 package Persons;
 
-import Data.*;
-
-import java.util.Scanner;
 
 public abstract class Person {
     public int ID;

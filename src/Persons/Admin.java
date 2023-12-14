@@ -2,9 +2,8 @@ package Persons;
 
 import java.util.Scanner;
 
-import java.util.ArrayList;
 import Data.*;
-import Data.Subscription;
+
 import java.util.Iterator;
 import java.util.Date;
 
@@ -21,7 +20,11 @@ public class Admin {
         Username = uname;
         Password = pass;
     }
+    public String getAllAttributes() {
+            String attributes = "," + Username + "," + Password ;
 
+            return attributes;
+        }
     public void AddCustomer() {
         int id;
         String name;

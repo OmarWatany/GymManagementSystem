@@ -1,6 +1,4 @@
-,10,01,2
+,10,1,2
 ,11,23,2
 ,13,21,2
 ,22,23,2
-
-index ,int customerId,int coachId,membership plan id
