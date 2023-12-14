@@ -2,29 +2,37 @@ package Data;
 
 import Persons.Coach;
 import Persons.Customer;
+import interfaces.filewriting;
 
-public class Subscription {
+public class Subscription implements filewriting {
     public int customerID, coachID;
     MemberShipPlan membershipPlan;
     public String subscription_date;
 
-    public Subscription(int customerID, int CoachID , MemberShipPlan membership ) {
+    public Subscription(int customerID, int CoachID, MemberShipPlan membership) {
         this.coachID = CoachID;
         this.customerID = customerID;
-         this.membershipPlan = membership;
+        this.membershipPlan = membership;
     }
 
-    public Customer getCustomer(int id){
-        for(Customer cstmr: Gym.Customers){
-            if(cstmr.getId() == id)
+    public String getAllAttributes() {
+        String attributes = "," + String.valueOf(customerID) + "," + String.valueOf(coachID) + ","
+                + String.valueOf(membershipPlan.planId);
+
+        return attributes;
+    }
+
+    public Customer getCustomer(int id) {
+        for (Customer cstmr : Gym.Customers) {
+            if (cstmr.getId() == id)
                 return cstmr;
         }
         return null;
     }
 
-    public Coach getCoach(int id){
-        for(Coach coach : Gym.Coaches){
-            if(coach.getId() == id)
+    public Coach getCoach(int id) {
+        for (Coach coach : Gym.Coaches) {
+            if (coach.getId() == id)
                 return coach;
         }
         return null;

@@ -2,5 +2,3 @@
 ,11,2004-02-27,12,23,34,45,34
 ,22,2004-02-27,12,23,34,45,32
 ,13,2023-12-14, 1.63F, 18.1F, 3.28F, 35.5F, 9.5F
-
-index,int customerId,Date  date,float height,float fatMass,float minerals,float bodyWater,float protein                

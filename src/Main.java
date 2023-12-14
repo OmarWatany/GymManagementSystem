@@ -2,7 +2,6 @@ import java.util.*;
 
 import Data.*;
 import Persons.*;
-import java.util.Date;
 
 import java.io.*;
 import java.text.ParseException;
@@ -12,47 +11,19 @@ public class Main {
 
     static Scanner scan = new Scanner(System.in);
 
-    public static Person signIn(String type) {
-        System.out.println("*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-");
-        System.out.println("  Sign in:  ");
-        String username;
-        String password;
-        boolean check = false;
-        System.out.print("Username: ");
-        username = scan.next();
-        System.out.print("Password: ");
-        password = scan.next();
-        if (type.equals("customer")) {
-            for (Customer cstmr : Gym.Customers) {
-                if (cstmr.UserName.equals(username) && cstmr.PassWord.equals(password)) {
-                    System.out.println("Access granted.");
-                    return cstmr;
-                }
-            }
-        } else if (type.equals("coach")) {
-            for (Coach coach : Gym.Coaches) {
-                if (coach.UserName.equals(username) && coach.PassWord.equals(password)) {
-                    System.out.println("Access granted.");
-                    return coach;
-                }
-            }
-        }
-        System.out.println("Access denied.");
-        System.out.println("Wrong username or password, try again.");
-        return null;
-    }
-
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
-        Date date = new Date();
         Gym gym = new Gym("Mommy Gym", "3and ommak", 69);
+        readFile(gym);
+        writeCSVFile(gym);
+
         Admin admin = new Admin("admin", "pass");
         Gym.Admins.add(admin);
 
-        readFile(gym);
         // Main loop
         gym.DisplayGymInfo();
 
+        System.out.println(Gym.Subscriptions.get(0).subscription_date);
         while (true) {
             System.out.println("  Sign in as:  ");
             System.out.println("1. Admin  ");
@@ -300,6 +271,7 @@ public class Main {
                 continue;
             }
         }
+        scan.close();
     }
 
     public static void readFile(Gym gym) {
@@ -321,14 +293,15 @@ public class Main {
 
                 MemberShipPlan membershipPlan = new MemberShipPlan(planId, startDate, monthlyPlan,
                         numOfMonthsRegistered, price);
-
-                gym.MemberShipPlans.add(membershipPlan);
+                Gym.MemberShipPlans.add(membershipPlan);
             }
+            br.close();
+
         } catch (FileNotFoundException e) {
             // TODO: handle exception
-            System.out.println("Couldn't read file");
+            System.out.println("no Couldn't read file");
         } catch (IOException e) {
-            System.out.println("Couldn't read file");
+            System.out.println("dCouldn't read file");
         } catch (ArrayIndexOutOfBoundsException c) {
         } catch (ParseException e) {
             // TODO Auto-generated catch block
@@ -349,7 +322,7 @@ public class Main {
 
                 MemberShipPlan membershipPlan = null;
                 try {
-                    for (MemberShipPlan mem : gym.MemberShipPlans) {
+                    for (MemberShipPlan mem : Gym.MemberShipPlans) {
                         if (mem.planId == membershipId)
                             membershipPlan = mem;
                     }
@@ -361,34 +334,35 @@ public class Main {
 
                 gym.Subscriptions.add(subscription);
             }
+            br.close();
         } catch (FileNotFoundException e) {
             // TODO: handle exception
-            System.out.println("Couldn't read file");
+            System.out.println("cCouldn't read file");
         } catch (IOException e) {
-            System.out.println("Couldn't read file");
+            System.out.println("kCouldn't read file");
         } catch (ArrayIndexOutOfBoundsException c) {
         }
 
         // Read customers into gym's arraylist
         try {
-            String line = "";
-            BufferedReader br = new BufferedReader(new FileReader("./src/files/Customer.csv"));
-            while ((line = br.readLine()) != null) // returns a Boolean value
+            // parsing a CSV file into Scanner class constructor
+            Scanner sc = new Scanner(new File("./src/files/Customer.csv"));
+            sc.useDelimiter(","); // sets the delimiter pattern
+            while (sc.hasNext()) // returns a boolean value
             {
-                String[] values = line.split(","); // use comma as separator
-
-                int customerId = Integer.parseInt(values[1]);
-                String customerName = values[2];
-                String gender = values[3];
-                String address = values[4];
-                String number = values[5];
-                String email = values[6];
-                String uname = values[7];
-                String pass = values[8];
+                String trimmed_string = sc.next().trim();
+                int customerId = Integer.parseInt(trimmed_string);
+                String customerName = sc.next();
+                String gender = sc.next();
+                String address = sc.next();
+                String number = sc.next();
+                String email = sc.next();
+                String uname = sc.next();
+                String pass = sc.next();
 
                 Subscription subscription = null;
                 try {
-                    for (Subscription sub : gym.Subscriptions) {
+                    for (Subscription sub : Gym.Subscriptions) {
                         if (sub.customerID == customerId)
                             subscription = sub;
                     }
@@ -399,11 +373,15 @@ public class Main {
                 Customer customer = new Customer(customerId, customerName, gender, address, number, email,
                         subscription, uname, pass);
                 Gym.Customers.add(customer);
+
             }
-        } catch (FileNotFoundException e) {
+            sc.close(); // closes the scanner
+            // br.close();
+
+        } catch (
+
+        FileNotFoundException e) {
             // TODO: handle exception
-            System.out.println("Couldn't read file");
-        } catch (IOException e) {
             System.out.println("Couldn't read file");
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("ToDo sub array e");
@@ -430,10 +408,11 @@ public class Main {
 
                 InBody inBody = new InBody(customerId, date, height, fatMass, minerals, bodyWater, protein);
                 for (int i = 0; i < Gym.Customers.size(); i++) {
-                    if (Gym.Customers.get(i).getId() == customerId)
+                    if (Gym.Customers.get(i).ID == customerId)
                         Gym.Customers.get(i).inBodies.add(inBody);
                 }
             }
+            br.close();
         } catch (FileNotFoundException e) {
             // TODO: handle exception
             System.out.println("Couldn't read file");
@@ -471,7 +450,7 @@ public class Main {
                 // adding customers
                 Customer customer = null;
                 try {
-                    for (Subscription sub : gym.Subscriptions) {
+                    for (Subscription sub : Gym.Subscriptions) {
                         if (sub.coachID == coachId)
                             try {
                                 customer = sub.getCustomer(sub.customerID);
@@ -484,6 +463,7 @@ public class Main {
                     System.out.println("Couldn't find subscription");
                 }
 
+                br.close();
             }
         } catch (FileNotFoundException e) {
             // TODO: handle exception
@@ -505,6 +485,7 @@ public class Main {
                 Equipment equipment = new Equipment(name, category, quantity);
                 Gym.Equipments.add(equipment);
             }
+            br.close();
         } catch (FileNotFoundException e) {
             // TODO: handle exception
             System.out.println("Couldn't read file");
@@ -523,6 +504,7 @@ public class Main {
                 String password = values[2];
                 Gym.Admins.add(new Admin(username, password));
             }
+            br.close();
         } catch (FileNotFoundException e) {
             // TODO: handle exception
             System.out.println("Couldn't read file");
@@ -532,4 +514,151 @@ public class Main {
         }
     }
 
+    public static void writeCSVFile(Gym gym) {
+        // Write customers
+        try {
+            FileWriter csvWriter = new FileWriter("./src/files/Customer.csv");
+            for (int i = 0; i < Gym.Customers.size(); i++) {
+                csvWriter.append(String.valueOf(Gym.Customers.get(i).ID));
+                csvWriter.append(",");
+                csvWriter.append(Gym.Customers.get(1).Name);
+                csvWriter.append(",");
+                csvWriter.append(Gym.Customers.get(i).gender);
+                csvWriter.append(",");
+                csvWriter.append(Gym.Customers.get(i).Address);
+                csvWriter.append(",");
+                csvWriter.append(Gym.Customers.get(i).PhoneNumber);
+                csvWriter.append(",");
+                csvWriter.append(Gym.Customers.get(i).Email);
+                csvWriter.append(",");
+                csvWriter.append(Gym.Customers.get(i).UserName);
+                csvWriter.append(",");
+                csvWriter.append(Gym.Customers.get(i).PassWord);
+                csvWriter.append(",");
+                if (i < Gym.Customers.size() - 1) {
+                    csvWriter.append("\n");
+                }
+            }
+            csvWriter.flush();
+            csvWriter.close();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            System.out.println("File not found , please double check the file path");
+        }
+        // Write coaches
+        try {
+            FileWriter csvWriter = new FileWriter("./src/files/Coach.csv");
+            for (Coach coach : Gym.Coaches) {
+                csvWriter.append(coach.getAllAttributes());
+                csvWriter.append("\n");
+            }
+            csvWriter.flush();
+            csvWriter.close();
+        } catch (IOException e) {
+            // TODO: handle exception
+            System.out.println("File not found , please double check the file path");
+        }
+        // write Subscription
+        try {
+            FileWriter csvWriter = new FileWriter("./src/files/Subscription.csv");
+            for (Subscription subscription : Gym.Subscriptions) {
+                csvWriter.append(subscription.getAllAttributes());
+                csvWriter.append("\n");
+            }
+            csvWriter.flush();
+            csvWriter.close();
+        } catch (IOException e) {
+            // TODO: handle exception
+            System.out.println("File not found , please double check the file path");
+        }
+
+        // write Equipment
+        try {
+            FileWriter csvWriter = new FileWriter("./src/files/Equipment.csv");
+            for (Equipment equipment : Gym.Equipments) {
+                csvWriter.append(equipment.getAllAttributes());
+                csvWriter.append("\n");
+            }
+            csvWriter.flush();
+            csvWriter.close();
+        } catch (IOException e) {
+            // TODO: handle exception
+            System.out.println("File not found , please double check the file path");
+        }
+        // write Admin
+        try {
+            FileWriter csvWriter = new FileWriter("./src/files/Admin.csv");
+            for (Admin admin : Gym.Admins) {
+                csvWriter.append(admin.getAllAttributes());
+                csvWriter.append("\n");
+            }
+            csvWriter.flush();
+            csvWriter.close();
+        } catch (IOException e) {
+            // TODO: handle exception
+            System.out.println("File not found , please double check the file path");
+        }
+        // write Membership
+        try {
+            FileWriter csvWriter = new FileWriter("./src/files/membershipPlans.csv");
+            for (MemberShipPlan memberShipPlan : Gym.MemberShipPlans) {
+                csvWriter.append(memberShipPlan.getAllAttributes());
+                csvWriter.append("\n");
+            }
+            csvWriter.flush();
+            csvWriter.close();
+        } catch (IOException e) {
+            // TODO: handle exception
+            System.out.println("File not found , please double check the file path");
+        }
+        // NOT YET WORKING
+        // write InBody
+        /*
+         * try {
+         * FileWriter csvWriter = new FileWriter("./src/files/InBody.csv");
+         * for (Customer customer : Gym.Customers) {
+         * for (InBody inbody : customer.inBodies) {
+         * csvWriter.append(inbody.getAllAttributes());
+         * csvWriter.append("\n");
+         * }
+         * 
+         * }
+         * csvWriter.flush();
+         * csvWriter.close();
+         * } catch (IOException e) {
+         * // TODO: handle exception
+         * System.out.println("File not found , please double check the file path");
+         * }
+         */
+    }
+
+    public static Person signIn(String type) {
+        System.out.println("*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-");
+        System.out.println("  Sign in:  ");
+        String username;
+        String password;
+        boolean check = false;
+        System.out.print("Username: ");
+        username = scan.next();
+        System.out.print("Password: ");
+        password = scan.next();
+        if (type.equals("customer")) {
+            for (Customer cstmr : Gym.Customers) {
+                if (cstmr.UserName.equals(username) && cstmr.PassWord.equals(password)) {
+                    System.out.println("Access granted.");
+                    return cstmr;
+                }
+            }
+        } else if (type.equals("coach")) {
+            for (Coach coach : Gym.Coaches) {
+                if (coach.UserName.equals(username) && coach.PassWord.equals(password)) {
+                    System.out.println("Access granted.");
+                    return coach;
+                }
+            }
+        }
+        System.out.println("Access denied.");
+        System.out.println("Wrong username or password, try again.");
+        return null;
+    }
 }

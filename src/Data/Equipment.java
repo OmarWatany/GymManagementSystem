@@ -1,6 +1,8 @@
 package Data;
 
-public class Equipment {
+import interfaces.filewriting;
+
+public class Equipment implements filewriting{
     // Properties
     private String name;
     private String category;
@@ -11,6 +13,14 @@ public class Equipment {
         this.name = name;
         this.category = category;
         this.quantity = quantity;
+    }
+
+    
+    public String getAllAttributes() {
+        String attributes = "," + name + "," + category + ","
+                + String.valueOf(quantity);
+
+        return attributes;
     }
 
     // Getter methods
