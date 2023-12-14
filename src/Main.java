@@ -11,11 +11,10 @@ public class Main {
 
     static Scanner scan = new Scanner(System.in);
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ParseException {
         Scanner scan = new Scanner(System.in);
         Gym gym = new Gym("Mommy Gym", "3and ommak", 69);
         readFile(gym);
-        writeCSVFile(gym);
 
         Admin admin = new Admin("admin", "pass");
         Gym.Admins.add(admin);
@@ -23,7 +22,6 @@ public class Main {
         // Main loop
         gym.DisplayGymInfo();
 
-        System.out.println(Gym.Subscriptions.get(0).subscription_date);
         while (true) {
             System.out.println("  Sign in as:  ");
             System.out.println("1. Admin  ");
@@ -169,9 +167,11 @@ public class Main {
                                 String sdate;
                                 System.out.println("  ");
                                 System.out
-                                        .println("Type the Date you wish to display all subscribed customers during: ");
+                                        .println("Type the Date you wish to display all subscribed customers during: YYYY-MM-DD ");
                                 sdate = scan.next();
-                                admin.show_sub_date(sdate);
+                                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                                Date startDate = dateFormat.parse(sdate);
+                                admin.show_sub_date(startDate);
                             } else if (key == 4) {
                                 // income
                                 admin.display_income();
@@ -271,6 +271,7 @@ public class Main {
                 continue;
             }
         }
+        writeCSVFile(gym);
         scan.close();
     }
 
@@ -321,14 +322,12 @@ public class Main {
                 int membershipId = Integer.parseInt(values[3]);
 
                 MemberShipPlan membershipPlan = null;
-                try {
                     for (MemberShipPlan mem : Gym.MemberShipPlans) {
                         if (mem.planId == membershipId)
                             membershipPlan = mem;
                     }
-                } catch (NullPointerException e) {
-                    System.out.println("Couldn't find plan");
-                }
+                    if (membershipPlan == null)
+                        System.out.println("Couldn't find any plan");
 
                 Subscription subscription = new Subscription(customerID, coachID, membershipPlan);
 
@@ -382,7 +381,7 @@ public class Main {
 
         FileNotFoundException e) {
             // TODO: handle exception
-            System.out.println("Couldn't read file");
+            System.out.println("Couldn't read customer file");
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("ToDo sub array e");
         }
@@ -414,13 +413,11 @@ public class Main {
             }
             br.close();
         } catch (FileNotFoundException e) {
-            // TODO: handle exception
-            System.out.println("Couldn't read file");
+            System.out.println("Couldn't read inbody file" + e);
         } catch (IOException e) {
-            System.out.println("Couldn't read file");
+            System.out.println("inbody io : " + e);
         } catch (ArrayIndexOutOfBoundsException c) {
         } catch (ParseException e) {
-            // TODO Auto-generated catch block
             System.out.println("date in the wrong format. should be yyyy-MM-dd");
         }
 
@@ -463,13 +460,13 @@ public class Main {
                     System.out.println("Couldn't find subscription");
                 }
 
-                br.close();
             }
+            br.close();
         } catch (FileNotFoundException e) {
             // TODO: handle exception
-            System.out.println("Couldn't read file");
+            System.out.println("Couldn't read Coaches file");
         } catch (IOException e) {
-            System.out.println("Couldn't read file");
+            System.out.println("Coaches io : " + e);
         } catch (ArrayIndexOutOfBoundsException c) {
         }
 
@@ -488,9 +485,9 @@ public class Main {
             br.close();
         } catch (FileNotFoundException e) {
             // TODO: handle exception
-            System.out.println("Couldn't read file");
+            System.out.println("Couldn't read Equipment");
         } catch (IOException e) {
-            System.out.println("Couldn't read file");
+            System.out.println("Equipment io e" + e);
         } catch (ArrayIndexOutOfBoundsException c) {
         }
 
@@ -507,9 +504,9 @@ public class Main {
             br.close();
         } catch (FileNotFoundException e) {
             // TODO: handle exception
-            System.out.println("Couldn't read file");
+            System.out.println("Couldn't read Admin file");
         } catch (IOException e) {
-            System.out.println("Couldn't read file");
+            System.out.println("Admin io exeption " + e);
         } catch (ArrayIndexOutOfBoundsException c) {
         }
     }

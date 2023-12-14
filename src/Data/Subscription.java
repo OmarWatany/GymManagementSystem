@@ -7,7 +7,6 @@ import interfaces.filewriting;
 public class Subscription implements filewriting {
     public int customerID, coachID;
     MemberShipPlan membershipPlan;
-    public String subscription_date;
 
     public Subscription(int customerID, int CoachID, MemberShipPlan membership) {
         this.coachID = CoachID;
@@ -28,6 +27,10 @@ public class Subscription implements filewriting {
                 return cstmr;
         }
         return null;
+    }
+
+    public MemberShipPlan getPlan(){
+        return membershipPlan;
     }
 
     public Coach getCoach(int id) {

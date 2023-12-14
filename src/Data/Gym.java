@@ -24,7 +24,7 @@ public class Gym {
 
     public void DisplayGymInfo() {
         System.out.println("*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-");
-        System.out.println("  welcome to " + Name);
+        System.out.println("welcome to " + Name);
         System.out.println("Our Address :  " + Address);
         System.out.println("Our Phone Number :  " + PhoneNumber);
         System.out.println("*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-");

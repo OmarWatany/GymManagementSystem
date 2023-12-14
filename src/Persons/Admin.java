@@ -3,6 +3,7 @@ package Persons;
 import java.util.Scanner;
 
 import Data.*;
+import jdk.jshell.JShell;
 
 import java.util.Iterator;
 import java.util.Date;
@@ -186,8 +187,11 @@ public class Admin {
     public void show_sub_history(String cname) {
         System.out.println("History: ");
         for (Customer customer : Gym.Customers) {
-            if (customer.Name.equals(cname))
-                System.out.println(customer.subscription.subscription_date);
+            if (customer.Name.equals(cname) && customer.subscriptions.size() != 0){
+                for(Subscription sub : customer.subscriptions){
+                    System.out.println(sub.getPlan().startDate);
+                }
+            }
         }
     }
 
@@ -205,11 +209,10 @@ public class Admin {
         }
     }
 
-    public void show_sub_date(String date) {
+    public void show_sub_date(Date date) {
         for (Customer customer : Gym.Customers) {
-            if (customer.subscription.subscription_date.equals(date))
+            if (customer.subscription.getPlan().equals(date))
                 System.out.println(customer.Name);
-
         }
     }
 
