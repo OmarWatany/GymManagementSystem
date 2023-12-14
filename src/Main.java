@@ -617,23 +617,23 @@ public class Main {
         }
         // NOT YET WORKING
         // write InBody
-        /*
-         * try {
-         * FileWriter csvWriter = new FileWriter("./src/files/InBody.csv");
-         * for (Customer customer : Gym.Customers) {
-         * for (InBody inbody : customer.inBodies) {
-         * csvWriter.append(inbody.getAllAttributes());
-         * csvWriter.append("\n");
-         * }
-         * 
-         * }
-         * csvWriter.flush();
-         * csvWriter.close();
-         * } catch (IOException e) {
-         * // TODO: handle exception
-         * System.out.println("File not found , please double check the file path");
-         * }
-         */
+
+        try {
+            FileWriter csvWriter = new FileWriter("./src/files/InBody.csv");
+            for (Customer customer : Gym.Customers) {
+                for (InBody inbody : customer.inBodies) {
+                    csvWriter.append(inbody.getAllAttributes());
+                    csvWriter.append("\n");
+                }
+
+            }
+            csvWriter.flush();
+            csvWriter.close();
+        } catch (IOException e) {
+            // TODO: handle exception
+            System.out.println("File not found , please double check the file path");
+        }
+
     }
 
     public static Person signIn(String type) {
