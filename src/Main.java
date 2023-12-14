@@ -11,7 +11,7 @@ public class Main {
 
     static Scanner scan = new Scanner(System.in);
 
-    public static void main(String[] args) throws ParseException {
+    public static void main(String[] args)  {
         Scanner scan = new Scanner(System.in);
         Gym gym = new Gym("Mommy Gym", "3and ommak", 69);
         readFile(gym);
@@ -170,8 +170,15 @@ public class Main {
                                         .println("Type the Date you wish to display all subscribed customers during: YYYY-MM-DD ");
                                 sdate = scan.next();
                                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                                Date startDate = dateFormat.parse(sdate);
-                                admin.show_sub_date(startDate);
+                                try {
+                                    Date startDate = dateFormat.parse(sdate);
+                                    admin.show_sub_date(startDate);
+                                } catch(NullPointerException e){
+                                    System.out.println("Date " + e);
+                                } catch (ParseException e) {
+                                    throw new RuntimeException(e);
+                                }
+
                             } else if (key == 4) {
                                 // income
                                 admin.display_income();
