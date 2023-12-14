@@ -8,6 +8,9 @@ public class Customer extends Person {
   public Date last_InBody_date;
   public Boolean is_Subscribed;
   public ArrayList<InBody> inBodies = new ArrayList<>() ;
+
+  public ArrayList<Subscription> subscriptions = new ArrayList<>();
+
   public Data.Subscription subscription;
 
   public Customer(int id, String name, String gender, String address, String number, String email,
@@ -15,6 +18,7 @@ public class Customer extends Person {
     super(id, name, gender, address, number, email,uname,pass);
     is_Subscribed = true;
     this.subscription = subscription;
+    subscriptions.add(subscription);
   }
 
   public int getId() {
