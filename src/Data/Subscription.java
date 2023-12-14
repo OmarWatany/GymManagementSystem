@@ -1,15 +1,32 @@
 package Data;
 
-import java.util.Date;
+import Persons.Coach;
+import Persons.Customer;
 
 public class Subscription {
     public int customerID, coachID;
-    // MemberShip membership;
+    MemberShipPlan membershipPlan;
     public String subscription_date;
 
-    public Subscription(int customerID, int CoachID /* ,Membership membership */) {
+    public Subscription(int customerID, int CoachID , MemberShipPlan membership ) {
         this.coachID = CoachID;
         this.customerID = customerID;
-        // this.membership = membership;
+         this.membershipPlan = membership;
+    }
+
+    public Customer getCustomer(int id){
+        for(Customer cstmr: Gym.Customers){
+            if(cstmr.getId() == id)
+                return cstmr;
+        }
+        return null;
+    }
+
+    public Coach getCoach(int id){
+        for(Coach coach : Gym.Coaches){
+            if(coach.getId() == id)
+                return coach;
+        }
+        return null;
     }
 }

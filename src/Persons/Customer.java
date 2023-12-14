@@ -11,13 +11,13 @@ public class Customer extends Person {
   public Data.Subscription subscription;
 
   public Customer(int id, String name, String gender, String address, String number, String email,
-      Subscription subscription) {
-    super(id, name, gender, address, number, email);
+      Subscription subscription,String uname,String pass) {
+    super(id, name, gender, address, number, email,uname,pass);
     is_Subscribed = true;
     this.subscription = subscription;
   }
 
-  public int customer_getId() {
+  public int getId() {
     return ID;
   }
 
@@ -25,7 +25,7 @@ public class Customer extends Person {
     is_Subscribed = f;
   }
 
-  public InBody get_InBody_info(Date date) {
+  public InBody get_InBody(Date date) {
     for (InBody inbody : inBodies) {
       if (date.equals(inbody.getDate())) {
         return inbody;
@@ -34,4 +34,20 @@ public class Customer extends Person {
     System.out.println("There is no InBodies registered at this date");
     return null;
   }
+
+  public void printInBodyHistory(){
+    for (InBody inbody : inBodies) {
+      inbody.displayInformation();
+    }
+  }
+
+  public void getInfo(){
+    System.out.println("ID : " + ID);
+    System.out.println("Name : " + Name);
+    System.out.println("gender  : " + gender );
+    System.out.println("Address  : " + Address ) ;
+    System.out.println("PhoneNumber  : " + PhoneNumber ) ;
+    System.out.println("Email  : " + Email );
+  }
+
 }

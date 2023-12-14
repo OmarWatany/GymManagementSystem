@@ -13,6 +13,7 @@ public class Gym {
     public static ArrayList<Equipment> Equipments = new ArrayList<>();
     public static ArrayList<Customer> Customers = new ArrayList<>();
     public static ArrayList<Admin> Admins = new ArrayList<>();
+    public static ArrayList<MemberShipPlan> MemberShipPlans = new ArrayList<>();
     Scanner scan = new Scanner(System.in);
 
     public Gym(String name, String address, int num) {
@@ -30,8 +31,8 @@ public class Gym {
     }
 
     public void AddCustomer(int id, String name, String gender, String address, String number, String email,
-            Subscription subscription) {
-        Customers.add(new Customer(id, name, gender, address, number, email, subscription));
+                            Subscription subscription,String uname,String pass) {
+        Customers.add(new Customer(id, name, gender, address, number, email, subscription,uname,pass));
 
     }
 
@@ -83,23 +84,21 @@ public class Gym {
         }
         return totalsalary;
     }
-    public int adminsignin() {
+    public boolean signinadmin(){
         System.out.println("*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-");
         System.out.println("  Sign in:  ");
         String username;
         String password;
-        int check=0;
         System.out.print("Username: ");
         username = scan.next();
         System.out.print("Password: ");
         password = scan.next();
         for (Admin admin : Admins) {
             if (admin.Username.equals(username) && admin.Password.equals(password)) {
-                check++;
-                break;
+                return true;
             }
         }
-        return check;
+        return false;
     }
 
 }
