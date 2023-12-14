@@ -146,20 +146,17 @@ public class Main {
                             key = scan.nextInt();
                             if (key == 1) {
                                 // history function
-                                String name;
                                 gym.displayCustomers();
                                 System.out.println("  ");
-                                System.out.println(
-                                        "Type the name of the customer you wish to display their subscription history: ");
-                                name = scan.next();
-                                admin.show_sub_history(name);
+                                System.out.println("Type the ID of the customer you wish to display their subscription history: ");
+                                key = scan.nextInt();
+                                admin.show_sub_history(key);
                             } else if (key == 2) {
                                 // customer-coach function
                                 String name;
                                 gym.displayCoaches();
                                 System.out.println("  ");
-                                System.out.println(
-                                        "Type the name of the coach you wish to display their assigned customers: ");
+                                System.out.println("Type the name of the coach you wish to display their assigned customers: ");
                                 name = scan.next();
                                 admin.all_coach_customers(name);
                             } else if (key == 3) {

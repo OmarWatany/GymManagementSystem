@@ -184,12 +184,17 @@ public class Admin {
         }
     }
 
-    public void show_sub_history(String cname) {
+    public void show_sub_history(int id) {
         System.out.println("History: ");
         for (Customer customer : Gym.Customers) {
-            if (customer.Name.equals(cname) && customer.subscriptions.size() != 0){
+            if (customer.ID==id && customer.subscriptions.size() != 0){
                 for(Subscription sub : customer.subscriptions){
-                    System.out.println(sub.getPlan().startDate);
+                    if(sub!=null) {
+                        System.out.println(sub.getPlan().startDate);
+                    }
+                    else{
+                        System.out.println("No Subscription history found");
+                    }
                 }
             }
         }
@@ -198,14 +203,15 @@ public class Admin {
     public void all_coach_customers(String cname) {
         System.out.println("Customers assigned to " + cname + " :");
         for (Coach coach : Gym.Coaches) {
-            if (coach.Name.equals(cname))
-                for (int i = 0; i < 10; i++) {
+            if (coach.Name.equals(cname)) {
+                for (int i = 1; i <= 10; i++) {
                     if (coach.Customers.get(i) == null) {
                         break;
                     }
 
                     System.out.println(coach.Customers.get(i).Name);
                 }
+            }
         }
     }
 
