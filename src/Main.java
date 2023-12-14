@@ -2,7 +2,6 @@ import java.util.*;
 
 import Data.*;
 import Persons.*;
-import java.util.Date;
 
 import java.io.*;
 import java.text.ParseException;
@@ -52,7 +51,11 @@ public class Main {
         readFile(gym);
         // Main loop
         gym.DisplayGymInfo();
-
+        gym.displayCoaches();
+        gym.displayCustomers();
+        gym.displayEquipments();
+        gym.displaySubscriptions();
+        System.out.println(gym.Subscriptions.get(0).subscription_date);
         while (true) {
             System.out.println("  Sign in as:  ");
             System.out.println("1. Admin  ");
@@ -322,11 +325,13 @@ public class Main {
                 MemberShipPlan membershipPlan = new MemberShipPlan(planId, startDate, monthlyPlan,
                         numOfMonthsRegistered, price);
 
-                gym.MemberShipPlans.add(membershipPlan);
+                Gym.MemberShipPlans.add(membershipPlan);
             }
+            br.close();
+
         } catch (FileNotFoundException e) {
             // TODO: handle exception
-            System.out.println("Couldn't read file");
+            System.out.println("no Couldn't read file");
         } catch (IOException e) {
             System.out.println("Couldn't read file");
         } catch (ArrayIndexOutOfBoundsException c) {
@@ -361,6 +366,7 @@ public class Main {
 
                 gym.Subscriptions.add(subscription);
             }
+            br.close();
         } catch (FileNotFoundException e) {
             // TODO: handle exception
             System.out.println("Couldn't read file");
@@ -371,24 +377,24 @@ public class Main {
 
         // Read customers into gym's arraylist
         try {
-            String line = "";
-            BufferedReader br = new BufferedReader(new FileReader("./src/files/Customer.csv"));
-            while ((line = br.readLine()) != null) // returns a Boolean value
+            // parsing a CSV file into Scanner class constructor
+            Scanner sc = new Scanner(new File("./src/files/Customer.csv"));
+            sc.useDelimiter(","); // sets the delimiter pattern
+            while (sc.hasNext()) // returns a boolean value
             {
-                String[] values = line.split(","); // use comma as separator
-
-                int customerId = Integer.parseInt(values[1]);
-                String customerName = values[2];
-                String gender = values[3];
-                String address = values[4];
-                String number = values[5];
-                String email = values[6];
-                String uname = values[7];
-                String pass = values[8];
+                String trimmed_string = sc.next().trim();
+                int customerId = Integer.parseInt(trimmed_string);
+                String customerName = sc.next();
+                String gender = sc.next();
+                String address = sc.next();
+                String number = sc.next();
+                String email = sc.next();
+                String uname = sc.next();
+                String pass = sc.next();
 
                 Subscription subscription = null;
                 try {
-                    for (Subscription sub : gym.Subscriptions) {
+                    for (Subscription sub : Gym.Subscriptions) {
                         if (sub.customerID == customerId)
                             subscription = sub;
                     }
@@ -400,13 +406,19 @@ public class Main {
                         subscription, uname, pass);
                 Gym.Customers.add(customer);
             }
-        } catch (FileNotFoundException e) {
+            sc.close(); // closes the scanner
+            // br.close();
+
+        } catch (
+
+        FileNotFoundException e) {
             // TODO: handle exception
             System.out.println("Couldn't read file");
         } catch (IOException e) {
             System.out.println("Couldn't read file");
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("ToDo sub array e");
+        }
+        catch (ArrayIndexOutOfBoundsException e) {
+        System.out.println("ToDo sub array e");
         }
 
         // Read Inbodies into customers' arraylist
