@@ -16,6 +16,7 @@ public class InBody {
 
     public InBody(int customerID, Date date, float height, float fatMass,
             float minerals, float bodyWater, float protein) {
+        this.customerId = customerID;
         this.date = date;
         this.height = height;
         this.fatMass = fatMass;
