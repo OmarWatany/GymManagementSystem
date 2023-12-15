@@ -14,6 +14,16 @@ public class InBody {
             bodyWater, protein, BMI, PBF;
     private float sWeight, sBMI, sLeanMass, sFatMass;
 
+    /**
+     * creates inbody object
+     * @param customerID
+     * @param date
+     * @param height
+     * @param fatMass
+     * @param minerals
+     * @param bodyWater
+     * @param protein
+     */
     public InBody(int customerID, Date date, float height, float fatMass,
             float minerals, float bodyWater, float protein) {
         this.customerId = customerID;
@@ -28,12 +38,15 @@ public class InBody {
         this.PBF = fatMass / totalWeight;
     }
 
+    /**
+     * return the inbody information in csv line form
+     * @return attrinbutes
+     */
     public String getAllAttributes() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String attributes = "," + String.valueOf(customerId) + "," + dateFormat.format(date) + ","
                 + String.valueOf(height) + "," + String.valueOf(fatMass) + "," + String.valueOf(minerals) + ","
                 + String.valueOf(bodyWater) + "," + String.valueOf(protein);
-
         return attributes;
     }
 
@@ -93,6 +106,11 @@ public class InBody {
         this.totalWeight = fatMass + bodyWater + protein + minerals;
     }
 
+
+    /**
+     * set the standard information based on customer gender
+     * @param customer
+     */
     public void setStandards(Customer customer) {
         if (customer.gender.toLowerCase().equals("male")) {
             this.sBMI = 22F;
@@ -105,6 +123,11 @@ public class InBody {
         }
     }
 
+    /**
+     *  print the target weight and muscle loss or gain
+     *  based on the inbody information
+     * @param customer
+     */
     public void GetInBodyWeightControl(Customer customer) {
         setStandards(customer);
         DecimalFormat df = new DecimalFormat();
@@ -120,6 +143,9 @@ public class InBody {
         System.out.println("Muscle control: " + df.format(muscleControl) + " Kg");
     }
 
+    /**
+     * print the customer information
+     */
     public void displayInformation() {
         DecimalFormat df = new DecimalFormat();
         df.setMaximumFractionDigits(2);

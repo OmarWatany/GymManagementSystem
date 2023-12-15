@@ -76,7 +76,7 @@ public class Gym {
         return totalprice;
     }
 
-    public static int gettotalsalary() {
+    public static int getTotalSalary() {
         int totalsalary = 0;
         for (Coach coach : Coaches) {
             totalsalary += coach.salary;
@@ -84,7 +84,16 @@ public class Gym {
         }
         return totalsalary;
     }
-    public boolean signinadmin(){
+
+    public Coach getCoach(int id){
+        for(Coach coach : Coaches){
+            if(coach.getId() == id)
+                return coach;
+        }
+        return null;
+    }
+
+    public Admin signinadmin(){
         System.out.println("*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-");
         System.out.println("  Sign in:  ");
         String username;
@@ -94,11 +103,10 @@ public class Gym {
         System.out.print("Password: ");
         password = scan.next();
         for (Admin admin : Admins) {
-            if (admin.Username.equals(username) && admin.Password.equals(password)) {
-                return true;
-            }
+            if (admin.Username.equals(username) && admin.Password.equals(password))
+                return admin;
         }
-        return false;
+        return null;
     }
 
 }

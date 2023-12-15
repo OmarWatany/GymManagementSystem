@@ -5,7 +5,7 @@ import java.util.Date;
 import Data.*;
 
 public class Customer extends Person {
-  public Date last_InBody_date;
+  public Date lastInBodydate;
   public Boolean is_Subscribed;
   public ArrayList<InBody> inBodies = new ArrayList<>() ;
 
@@ -13,6 +13,18 @@ public class Customer extends Person {
 
   public Data.Subscription subscription;
 
+  /**
+   * create customer object
+   * @param id
+   * @param name
+   * @param gender
+   * @param address
+   * @param number
+   * @param email
+   * @param subscription
+   * @param uname
+   * @param pass
+   */
   public Customer(int id, String name, String gender, String address, String number, String email,
       Subscription subscription,String uname,String pass) {
     super(id, name, gender, address, number, email,uname,pass);
@@ -25,10 +37,17 @@ public class Customer extends Person {
     return ID;
   }
 
-  public void set_subscription(Boolean f) {
+  public void setSubscription(Boolean f) {
     is_Subscribed = f;
   }
 
+  /**
+   * search for inbody with date
+   * @param date
+   * YYYY-MM-DD
+   * @return inbody
+   * return inbody class
+   */
   public InBody get_InBody(Date date) {
     for (InBody inbody : inBodies) {
       if (date.equals(inbody.getDate())) {
@@ -39,11 +58,18 @@ public class Customer extends Person {
     return null;
   }
 
+  /**
+   * prints the customer InBody history.
+   */
   public void printInBodyHistory(){
     for (InBody inbody : inBodies) {
       inbody.displayInformation();
     }
   }
+
+  /**
+   * prints the customer information
+   */
 
   public void getInfo(){
     System.out.println("ID : " + ID);
@@ -52,6 +78,8 @@ public class Customer extends Person {
     System.out.println("Address  : " + Address ) ;
     System.out.println("PhoneNumber  : " + PhoneNumber ) ;
     System.out.println("Email  : " + Email );
+    System.out.println("uname  : " + UserName );
+    System.out.println("pass  : " + PassWord );
   }
 
 }
