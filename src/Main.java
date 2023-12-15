@@ -13,11 +13,8 @@ public class Main {
 
     public static void main(String[] args)  {
         Scanner scan = new Scanner(System.in);
-        Gym gym = new Gym("Mommy Gym", "3and ommak", 69);
+        Gym gym = new Gym("Elgym Gym", "5 ali st ", 69);
         readFile(gym);
-
-        Admin admin = new Admin("admin", "pass");
-        Gym.Admins.add(admin);
 
         // Main loop
         gym.DisplayGymInfo();
@@ -31,19 +28,15 @@ public class Main {
             int key;
             key = scan.nextInt();
             if (key == 1) {
-
-                boolean check;
                 // admin loop
-                if (key == 1) {
-                    check = gym.signinadmin();
+                Admin admin = gym.signinadmin();
 
-                    if (check) {
-                        System.out.println("Access granted.");
-                    } else {
-                        System.out.println("Access denied.");
-                        System.out.println("Wrong username or password, try again.");
-                        continue;
-                    }
+                if (admin != null) {
+                    System.out.println("Access granted.");
+                } else {
+                    System.out.println("Access denied.");
+                    System.out.println("Wrong username or password, try again.");
+                    continue;
                 }
                 while (true) {
                     System.out.println("*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-");
@@ -153,12 +146,16 @@ public class Main {
                                 admin.show_sub_history(key);
                             } else if (key == 2) {
                                 // customer-coach function
-                                String name;
                                 gym.displayCoaches();
                                 System.out.println("  ");
-                                System.out.println("Type the name of the coach you wish to display their assigned customers: ");
-                                name = scan.next();
-                                admin.all_coach_customers(name);
+                                System.out.println("Type the if of the coach you wish to display their assigned customers: ");
+                                int id = scan.nextInt();
+                                Coach coach = null;
+                                while(coach == null){
+                                    coach = gym.getCoach(id);
+                                }
+                                System.out.println("Customers assigned to " + coach.getName() + " :");
+                                coach.listCustomers();
                             } else if (key == 3) {
                                 // subscription-date function
                                 String sdate;
@@ -199,11 +196,11 @@ public class Main {
                 }
             } else if (key == 2) {
                 // customer loop
-                Customer customer;
+                Customer customer = null;
                 System.out.println("*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-");
                 customer = (Customer) signIn("customer");
-                if (customer == null)
-                    continue;
+//                if (customer == null)
+//                    continue;
             } else if (key == 3) {
                 Coach coach;
                 // coach loop
@@ -275,7 +272,7 @@ public class Main {
                 continue;
             }
         }
-        writeCSVFile(gym);
+//        writeCSVFile(gym);
         scan.close();
     }
 
@@ -303,14 +300,15 @@ public class Main {
             br.close();
 
         } catch (FileNotFoundException e) {
-            // TODO: handle exception
-            System.out.println("no Couldn't read file");
+            System.out.println("couldn't read membership file");
         } catch (IOException e) {
             System.out.println("dCouldn't read file");
         } catch (ArrayIndexOutOfBoundsException c) {
+            // TODO: handle exception
         } catch (ParseException e) {
-            // TODO Auto-generated catch block
             System.out.println("date in the wrong format. should be yyyy-MM-dd");
+        } catch(NumberFormatException e){
+            System.out.println("membership file " + e);
         }
 
         // Read subscriptons into gym's arraylist
@@ -344,6 +342,8 @@ public class Main {
         } catch (IOException e) {
             System.out.println("kCouldn't read file");
         } catch (ArrayIndexOutOfBoundsException c) {
+        } catch(NumberFormatException e){
+            System.out.println("subscription file " + e);
         }
 
         // Read customers into gym's arraylist
@@ -381,13 +381,12 @@ public class Main {
             sc.close(); // closes the scanner
             // br.close();
 
-        } catch (
-
-        FileNotFoundException e) {
-            // TODO: handle exception
+        } catch ( FileNotFoundException e) {
             System.out.println("Couldn't read customer file");
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("ToDo sub array e");
+        } catch(NumberFormatException e){
+            System.out.println("customers file " + e);
         }
 
         // Read Inbodies into customers' arraylist
@@ -423,6 +422,8 @@ public class Main {
         } catch (ArrayIndexOutOfBoundsException c) {
         } catch (ParseException e) {
             System.out.println("date in the wrong format. should be yyyy-MM-dd");
+        } catch(NumberFormatException e){
+            System.out.println("inbody file " + e);
         }
 
         // Read coaches into gym
@@ -472,6 +473,8 @@ public class Main {
         } catch (IOException e) {
             System.out.println("Coaches io : " + e);
         } catch (ArrayIndexOutOfBoundsException c) {
+        } catch(NumberFormatException e){
+            System.out.println("coach file " + e);
         }
 
         try {
@@ -638,15 +641,17 @@ public class Main {
         System.out.println("  Sign in:  ");
         String username;
         String password;
-        boolean check = false;
         System.out.print("Username: ");
         username = scan.next();
         System.out.print("Password: ");
         password = scan.next();
         if (type.equals("customer")) {
             for (Customer cstmr : Gym.Customers) {
-                if (cstmr.UserName.equals(username) && cstmr.PassWord.equals(password)) {
+                // there is a problem with the password check
+                // username works fine
+                if (cstmr.UserName.equals(username) && cstmr.PassWord.equals(password.trim())) {
                     System.out.println("Access granted.");
+                    System.out.println("pass: " + cstmr.PassWord);
                     return cstmr;
                 }
             }
@@ -657,6 +662,8 @@ public class Main {
                     return coach;
                 }
             }
+        } else {
+            System.out.println("error");
         }
         System.out.println("Access denied.");
         System.out.println("Wrong username or password, try again.");

@@ -26,8 +26,8 @@ public class Coach extends Person implements filewriting {
         return attributes;
     }
 
-    public void getName() {
-        System.out.println(Name);
+    public String getName() {
+        return Name;
     }
 
     public void setWorkingHours(int wh) {

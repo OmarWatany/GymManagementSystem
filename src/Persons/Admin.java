@@ -1,31 +1,40 @@
 package Persons;
 
 import java.util.Scanner;
-
 import Data.*;
-import jdk.jshell.JShell;
-
 import java.util.Iterator;
 import java.util.Date;
 
-// import static Data.Gender.FEMALE;
-// import static Data.Gender.MALE;
-
+/**
+ * Gym Administrator who can access the data and modify it
+ */
 public class Admin {
     public String Username;
     public String Password;
 
     Scanner scan = new Scanner(System.in);
 
+    /**
+     *  create admin object
+     * @param uname
+     * USERNAME
+     * @param pass
+     * PASSWORD
+     */
     public Admin(String uname, String pass) {
         Username = uname;
         Password = pass;
     }
     public String getAllAttributes() {
-            String attributes = "," + Username + "," + Password ;
+        String attributes = "," + Username + "," + Password ;
 
-            return attributes;
-        }
+        return attributes;
+    }
+
+    /**
+     * Add customer to gym
+     * takes data in runtime and adds the customer to the gym data
+     */
     public void AddCustomer() {
         int id;
         String name;
@@ -71,6 +80,10 @@ public class Admin {
         System.out.println("Customer record added.");
     }
 
+    /**
+     * delete customer by Id
+     * @param customerId
+     */
     public void deleteCustomer(int customerId) {
         Iterator<Customer> iterator = Gym.Customers.iterator();
         while (iterator.hasNext()) {
@@ -83,6 +96,11 @@ public class Admin {
         }
     }
 
+    /**
+     * add subscription
+     * @param id
+     * @return
+     */
     public Subscription getsub(int id) {
         int cid;
         System.out.println("Enter subscription detail... ");
@@ -95,6 +113,9 @@ public class Admin {
         return newsub;
     }
 
+    /**
+     * Add coach
+     */
     public void AddCoach() {
         int id;
         String name;
@@ -145,6 +166,10 @@ public class Admin {
         System.out.println("Coach record added.");
     }
 
+    /**
+     * delete coach by id
+     * @param coachId
+     */
     public void deleteCoach(int coachId) {
         Iterator<Coach> iterator = Gym.Coaches.iterator();
         while (iterator.hasNext()) {
@@ -157,6 +182,9 @@ public class Admin {
         }
     }
 
+    /**
+     * add new equipment information to the gym data
+     */
     public void AddEquipment() {
         int quantity;
         String name;
@@ -172,6 +200,10 @@ public class Admin {
         System.out.println("Equipment record added.");
     }
 
+    /**
+     * dalete equipment information by name
+     * @param name
+     */
     public void deleteEquipment(String name) {
         Iterator<Equipment> iterator = Gym.Equipments.iterator();
         while (iterator.hasNext()) {
@@ -184,6 +216,11 @@ public class Admin {
         }
     }
 
+    /**
+     * prints customer subscription history
+     * @param id
+     * customer id
+     */
     public void show_sub_history(int id) {
         System.out.println("History: ");
         for (Customer customer : Gym.Customers) {
@@ -200,6 +237,10 @@ public class Admin {
         }
     }
 
+    /**
+     *
+     * @param cname
+     */
     public void all_coach_customers(String cname) {
         System.out.println("Customers assigned to " + cname + " :");
         for (Coach coach : Gym.Coaches) {
@@ -208,7 +249,6 @@ public class Admin {
                     if (coach.Customers.get(i) == null) {
                         break;
                     }
-
                     System.out.println(coach.Customers.get(i).Name);
                 }
             }
@@ -224,7 +264,7 @@ public class Admin {
 
     public void display_income() {
         int income;
-        income = Gym.gettotalprice() - Gym.gettotalsalary();
+        income = Gym.gettotalprice() - Gym.getTotalSalary();
         System.out.println("total income = " + income);
     }
     public void addadmin(){
