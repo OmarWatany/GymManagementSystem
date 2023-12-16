@@ -119,16 +119,31 @@ public class Admin implements validatingInputs  {
      * delete customer by Id
      * @param customerId
      */
-    public void deleteCustomer(int customerId) {
+    public boolean deleteCustomer(int customerId) {
         Iterator<Customer> iterator = Gym.Customers.iterator();
+        boolean found=false;
         while (iterator.hasNext()) {
             Customer customer = iterator.next();
             if (customer.getId() == customerId) {
+                found=true;
                 iterator.remove(); // Remove the customer with the matching ID
                 System.out.println("Customer with ID " + customerId + " record deleted.");
-                return; // Assuming each ID is unique, we can exit the loop after deletion
+
+                Iterator<Subscription> iterator2 = Gym.Subscriptions.iterator();
+                while (iterator2.hasNext()) {
+                    Subscription subscription = iterator2.next();
+                    if (subscription == customer.subscription ) {
+                        iterator2.remove(); // Remove the customer with the matching ID
+                        return true; // Assuming each ID is unique, we can exit the loop after deletion
+                    }
+                }
+                return true; // Assuming each ID is unique, we can exit the loop after deletion
             }
         }
+        if (!found){
+            System.out.println("There is no customer with this ID, please enter another ID");
+        }
+        return false;
     }
 
     /**
@@ -261,6 +276,10 @@ public class Admin implements validatingInputs  {
             Coach coach = iterator.next();
             if (coach.getId() == coachId) {
                 found=true;
+                for (Subscription subscription:Gym.Subscriptions){
+                    if (subscription.coachID==coach.ID)
+                        subscription.coachID=0;
+                }
                 iterator.remove(); // Remove the customer with the matching ID
                 System.out.println("Coach with ID " + coachId + " record deleted.");
                 return true; // Assuming each ID is unique, we can exit the loop after deletion
@@ -320,31 +339,33 @@ public class Admin implements validatingInputs  {
                         System.out.println(sub.getPlan().startDate);
                     }
                     else{
-                        System.out.println("No Subscription history found");
+                        System.out.println("No Subscription history found.");
                     }
                 }
             }
         }
+    }
+    /**
+     *
+     * displays all customers for a specific coach.
+     */
+    public void all_coach_customers() {
+        Gym.displayCoaches();
+        System.out.println("  ");
+        System.out.println("Type the ID of the coach you wish to display their assigned customers: ");
+        int id =validatingInputs.inputInteger();
+        Coach coach = null;
+        while(coach == null){
+            coach = Gym.getCoach(id);
+        }
+        System.out.println("Customers assigned to " + coach.getName() + " :");
+        coach.listCustomers();
     }
 
     /**
      *
-     * @param cname
+     * @param date
      */
-    public void all_coach_customers(String cname) {
-        System.out.println("Customers assigned to " + cname + " :");
-        for (Coach coach : Gym.Coaches) {
-            if (coach.Name.equals(cname)) {
-                for (int i = 1; i <= 10; i++) {
-                    if (coach.Customers.get(i) == null) {
-                        break;
-                    }
-                    System.out.println(coach.Customers.get(i).Name);
-                }
-            }
-        }
-    }
-
     public void show_sub_date(Date date) {
         for (Customer customer : Gym.Customers) {
             if (customer.subscription.getPlan().equals(date))

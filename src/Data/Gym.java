@@ -85,10 +85,17 @@ public class Gym {
         return totalsalary;
     }
 
-    public Coach getCoach(int id){
+    public static Coach getCoach(int id){
         for(Coach coach : Coaches){
             if(coach.getId() == id)
                 return coach;
+        }
+        return null;
+    }
+    public static Customer getCustomer(int id){
+        for(Customer customer : Customers){
+            if(customer.getId() == id)
+                return customer;
         }
         return null;
     }
@@ -107,6 +114,22 @@ public class Gym {
                 return admin;
         }
         return null;
+    }
+    public static void deletesub(Subscription sub){
+        for (Subscription subscription:Subscriptions){
+            if (subscription==sub){
+                Gym.Subscriptions.remove(subscription);
+            }
+        }
+
+    }
+    public static void deletecust(Customer cust){
+        for (Customer customer:Customers){
+            if (customer==cust){
+                Gym.Subscriptions.remove(customer);
+            }
+        }
+
     }
 
 }
