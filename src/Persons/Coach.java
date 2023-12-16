@@ -19,10 +19,6 @@ public class Coach extends Person implements filewriting {
     public String getAllAttributes() {
         String attributes = ","+String.valueOf(ID) + "," + Name + "," + gender + "," + Address + "," + PhoneNumber + ","
                 + Email +","+workingHours+","+salary+ "," + UserName + "," + PassWord;
-//        for (Customer customer : Customers) {
-//            attributes = attributes + ","+customer.ID;
-//
-//        }
         return attributes;
     }
 
@@ -34,13 +30,18 @@ public class Coach extends Person implements filewriting {
         workingHours = wh;
     }
 
-    public void getWorkingHours() {
+    public int getWorkingHours() {
         System.out.println(workingHours);
+        return workingHours;
     }
 
     public void listCustomers() {
-        for (Customer cstmr : Customers) {
-            System.out.println("Id: " + cstmr.getId() + "  ,Name :" + cstmr.Name);
+        for (Customer cstmr : this.Customers) {
+            try{
+                System.out.println("Id: " + cstmr.getId() + "  ,Name :" + cstmr.Name);
+            } catch (NullPointerException e){
+                System.out.println("There isn't any customers." + e + " size " + this.Customers.size());
+            }
         }
     }
 

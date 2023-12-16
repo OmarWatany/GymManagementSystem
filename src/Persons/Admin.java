@@ -80,7 +80,7 @@ public class Admin implements validatingInputs  {
             }
         }
         System.out.print("Address: ");
-        address = validatingInputs.inputAddress();
+        address = validatingInputs.inputString();
         System.out.print("Phone Number: ");
         while(true) {
             number = scan.next();
@@ -96,7 +96,7 @@ public class Admin implements validatingInputs  {
         while(true){
             boolean found=false;
             System.out.print("UserName: ");
-            uname = scan.next();
+            uname = validatingInputs.inputString();
             for (Customer customer: Gym.Customers){
                 if (customer.UserName.equals(uname)){
                     found=true;
@@ -109,9 +109,12 @@ public class Admin implements validatingInputs  {
             else break;
         }
         System.out.print("Password: ");
-        pass = scan.next();
+        pass = validatingInputs.inputString();
         sub = getsub(id);
-        Gym.Customers.add(new Customer(id, name, gender, address, number, email, sub,uname,pass));
+        Coach coach = sub.getCoach();
+        Customer newCustomer =new Customer(id, name, gender, address, number, email, sub,uname,pass);
+        Gym.Customers.add(newCustomer);
+        coach.Customers.add(newCustomer);
         System.out.println("Customer record added.");
     }
 
@@ -226,7 +229,7 @@ public class Admin implements validatingInputs  {
             }
         }
         System.out.print("Address: ");
-        address = validatingInputs.inputAddress();
+        address = validatingInputs.inputString();
         System.out.print("Phone Number: ");
         while(true) {
             number = scan.next();
@@ -389,5 +392,207 @@ public class Admin implements validatingInputs  {
         Gym.Admins.add(new Admin(username,password));
     }
 
-
+public void Edit() {
+    int id,choice,key;
+    String key1;
+    System.out.println("Enter Id of customer to edit info");
+    id = validatingInputs.inputInteger();
+    for (Customer customer : Gym.Customers) {
+        if (customer.ID == id) {
+            System.out.println("Id:"+customer.ID);
+            System.out.println("Name:"+customer.Name);
+            System.out.println("Address:"+customer.Address);
+            System.out.println("Phone Number:"+customer.PhoneNumber);
+            System.out.println("Email:"+customer.Email);
+            System.out.println("Username:"+customer.UserName);
+            System.out.println("Password:"+customer.PassWord);
+            System.out.println("Gender:"+customer.gender);
+            System.out.println("What do you Want to edit?");
+            System.out.println("1.Name");
+            System.out.println("2.Address");
+            System.out.println("3.Phone Number");
+            System.out.println("4.Email");
+            System.out.println("5.Username");
+            System.out.println("6.Password");
+            System.out.println("7.Gender");
+            System.out.println("8.Back");
+            choice = validatingInputs.inputInteger();
+            if(choice==1){
+                System.out.println("Enter new name");
+                key1=scan.nextLine();
+                customer.Name=key1;
+                System.out.println("Data updated");
+            }
+            if(choice==2){
+                System.out.println("Enter new address");
+                key1=scan.nextLine();
+                customer.Address=key1;
+                System.out.println("Data updated");
+            }
+            if(choice==3){
+                System.out.println("Enter new phone no.");
+                key1=scan.nextLine();
+                customer.PhoneNumber=key1;
+                System.out.println("Data updated");
+            }
+            if(choice==4){
+                System.out.println("Enter new Email");
+                key1=scan.nextLine();
+                customer.Email=key1;
+                System.out.println("Data updated");
+            }
+            if(choice==5){
+                System.out.println("Enter new username");
+                key1=scan.nextLine();
+                customer.UserName=key1;
+                System.out.println("Data updated");
+            }
+            if(choice==6){
+                System.out.println("Enter new password");
+                key1=scan.nextLine();
+                customer.PassWord=key1;
+                System.out.println("Data updated");
+            }
+            if(choice==7){
+                System.out.println("Enter new gender");
+                key1=scan.nextLine();
+                customer.gender=key1;
+                System.out.println("Data updated");
+            }
+            if(choice==8){
+                break;
+            }
+        }
+    }
 }
+    public void edit_coaches() {
+        int id,choice,key;
+        String key1;
+        System.out.println("Enter Id of coach to edit info");
+        id = validatingInputs.inputInteger();
+        for (Coach coach : Gym.Coaches) {
+            if (coach.ID == id) {
+                System.out.println("Id:"+coach.ID);
+                System.out.println("Name:"+coach.Name);
+                System.out.println("Address:"+coach.Address);
+                System.out.println("Phone Number:"+coach.PhoneNumber);
+                System.out.println("Email:"+coach.Email);
+                System.out.println("Username:"+coach.UserName);
+                System.out.println("Password:"+coach.PassWord);
+                System.out.println("Gender:"+coach.gender);
+                System.out.println("Working Hours:"+coach.getWorkingHours());
+                System.out.println("Salary:"+coach.salary);
+                System.out.println("What do you Want to edit?");
+                System.out.println("1.Name");
+                System.out.println("2.Address");
+                System.out.println("3.Phone Number");
+                System.out.println("4.Email");
+                System.out.println("5.Username");
+                System.out.println("6.Password");
+                System.out.println("7.Gender");
+                System.out.println("8.Working Hours");
+                System.out.println("9.Salary");
+                System.out.println("10.Back");
+                choice = validatingInputs.inputInteger();
+                if(choice==1){
+                    System.out.println("Enter new name");
+                    key1=scan.nextLine();
+                    coach.Name=key1;
+                    System.out.println("Data updated");
+                }
+                if(choice==2){
+                    System.out.println("Enter new address");
+                    key1=scan.nextLine();
+                    coach.Address=key1;
+                    System.out.println("Data updated");
+                }
+                if(choice==3){
+                    System.out.println("Enter new phone no.");
+                    key1=scan.nextLine();
+                    coach.PhoneNumber=key1;
+                    System.out.println("Data updated");
+                }
+                if(choice==4){
+                    System.out.println("Enter new Email");
+                    key1=scan.nextLine();
+                    coach.Email=key1;
+                    System.out.println("Data updated");
+                }
+                if(choice==5){
+                    System.out.println("Enter new username");
+                    key1=scan.nextLine();
+                    coach.UserName=key1;
+                    System.out.println("Data updated");
+                }
+                if(choice==6){
+                    System.out.println("Enter new password");
+                    key1=scan.nextLine();
+                    coach.PassWord=key1;
+                    System.out.println("Data updated");
+                }
+                if(choice==7){
+                    System.out.println("Enter new gender");
+                    key1=scan.nextLine();
+                    coach.gender=key1;
+                    System.out.println("Data updated");
+                }
+                if(choice==8){
+                    System.out.println("Enter new working hours");
+                    key=validatingInputs.inputInteger();
+                    coach.setWorkingHours(key);
+                    System.out.println("Data updated");
+                }
+                if(choice==9){
+                    System.out.println("Enter new salary");
+                    key=validatingInputs.inputInteger();
+                    coach.salary=key;
+                    System.out.println("Data updated");
+                }
+                if(choice==10){
+                    break;
+                }
+            }
+        }
+    }
+    public void edit_equipments() {
+        int choice,key;
+        String id,key1;
+        System.out.println("Enter Id of customer to edit info");
+        id = scan.nextLine();
+        for (Equipment equipment : Gym.Equipments) {
+            if (equipment.equals(id)) {
+                System.out.println("Name:"+equipment.getName());
+                System.out.println("Category:"+equipment.getCategory());
+                System.out.println("Quantity:"+equipment.getQuantity());
+                System.out.println("What do you Want to edit?");
+                System.out.println("1.Name");
+                System.out.println("2.Category");
+                System.out.println("3.Quantity");
+                System.out.println("4.Back");
+                choice = validatingInputs.inputInteger();
+                if(choice==1){
+                    System.out.println("Enter new name");
+                    key1=scan.nextLine();
+                    equipment.setName(key1);
+                    System.out.println("Data updated");
+                }
+                if(choice==2){
+                    System.out.println("Enter new category");
+                    key1=scan.nextLine();
+                    equipment.setCategory(key1);
+                    System.out.println("Data updated");
+                }
+                if(choice==3){
+                    System.out.println("Enter new quantity");
+                    key=validatingInputs.inputInteger();
+                    equipment.setQuantity(key);
+                    System.out.println("Data updated");
+                }
+                if(choice==4){
+                    break;
+                }
+            }
+        }
+    }
+}
+

@@ -61,12 +61,10 @@ public class Main implements validatingInputs {
                             System.out.println("0. Exit");
                             key =validatingInputs.inputInteger();
                             if (key==1){
-                                // add function
                                 admin.AddCustomer();
                             }
                             else if (key == 2) {
-                                // edit function
-
+                                admin.Edit();
                             } else if (key == 3) {
                                 // delete function
                                 System.out.println("Enter customer ID that you would like to delete: ");
@@ -85,11 +83,11 @@ public class Main implements validatingInputs {
                         }
                     } else if (key == 2) {
                         // Coaches option
+                        System.out.println("*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-");
                         Gym.displayCoaches();
                         while (true) {
-                            System.out.println("*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-");
                             System.out.println("1. Add Coach");
-                            System.out.println("2. Edit Coach  ");
+                            System.out.println("2.  Edit Coach");
                             System.out.println("3. Delete Coach  ");
                             System.out.println("4. Back  ");
                             System.out.println("0. Exit");
@@ -98,8 +96,7 @@ public class Main implements validatingInputs {
                                 // add function
                                 admin.AddCoach();
                             } else if (key == 2) {
-                                // edit function
-
+                               admin.edit_coaches();
                             } else if (key == 3) {
                                 // delete function
                                 boolean found=false;
@@ -122,9 +119,9 @@ public class Main implements validatingInputs {
 
                     } else if (key == 3) {
                         // Equipment option
-                        gym.displayEquipments();
                         while (true) {
                             System.out.println("*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-");
+                            gym.displayEquipments();
                             System.out.println("1. Add Equipment  ");
                             System.out.println("2. Edit Equipment  ");
                             System.out.println("3. Delete Equipment  ");
@@ -135,10 +132,11 @@ public class Main implements validatingInputs {
                                 // add function
                                 admin.AddEquipment();
                             }
-                            else if (key == 2) {
-                                // edit function
-
-                            }else if (key == 3) {
+                            if (key == 2) {
+                                // add function
+                                admin.edit_equipments();
+                            }
+                            else if (key == 3) {
                                 // delete function
                                 String skey;
                                 System.out.println("Enter Equipment name that you would like to delete: ");
@@ -163,7 +161,7 @@ public class Main implements validatingInputs {
                             // System.out.println(" ");
                             System.out.println("1. Show subscription history of a specific customer ");
                             System.out.println("2. Show all customers assigned to a specific Coach ");
-                            System.out.println("3. Show all subscribed customers at a specific Date ");
+                            System.out.println("3. Show all susbcribed customers at a specific Date ");
                             System.out.println("4. Show total income ");
                             System.out.println("5. Add an Admin ");
                             System.out.println("6. Back");
@@ -348,7 +346,7 @@ public class Main implements validatingInputs {
                 System.out.println("Invalid entry, Try again.");
             }
         }
-        writeCSVFile(gym);
+        //writeCSVFile(gym);
         scan.close();
     }
 
@@ -529,7 +527,7 @@ public class Main implements validatingInputs {
                     for (Subscription sub : Gym.Subscriptions) {
                         if (sub.coachID == coachId)
                             try {
-                                customer = sub.getCustomer(sub.customerID);
+                                customer = sub.getCustomer();
                                 coach.Customers.add(customer);
                             } catch (NullPointerException e) {
                                 System.out.println("Couldn't find customer");
@@ -717,9 +715,9 @@ public class Main implements validatingInputs {
         String username;
         String password;
         System.out.print("Username: ");
-        username = scan.next();
+        username = validatingInputs.inputString();
         System.out.print("Password: ");
-        password = scan.nextLine();
+        password = validatingInputs.inputString();
         if (type.equals("customer")) {
             for (Customer cstmr : Gym.Customers) {
                 // there is a problem with the password check
