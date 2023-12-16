@@ -80,7 +80,7 @@ public class Admin implements validatingInputs  {
             }
         }
         System.out.print("Address: ");
-        address = validatingInputs.inputAddress();
+        address = validatingInputs.inputString();
         System.out.print("Phone Number: ");
         while(true) {
             number = scan.next();
@@ -96,7 +96,7 @@ public class Admin implements validatingInputs  {
         while(true){
             boolean found=false;
             System.out.print("UserName: ");
-            uname = scan.next();
+            uname = validatingInputs.inputString();
             for (Customer customer: Gym.Customers){
                 if (customer.UserName.equals(uname)){
                     found=true;
@@ -109,9 +109,12 @@ public class Admin implements validatingInputs  {
             else break;
         }
         System.out.print("Password: ");
-        pass = scan.next();
+        pass = validatingInputs.inputString();
         sub = getsub(id);
-        Gym.Customers.add(new Customer(id, name, gender, address, number, email, sub,uname,pass));
+        Coach coach = sub.getCoach();
+        Customer newCustomer =new Customer(id, name, gender, address, number, email, sub,uname,pass);
+        Gym.Customers.add(newCustomer);
+        coach.Customers.add(newCustomer);
         System.out.println("Customer record added.");
     }
 
@@ -226,7 +229,7 @@ public class Admin implements validatingInputs  {
             }
         }
         System.out.print("Address: ");
-        address = validatingInputs.inputAddress();
+        address = validatingInputs.inputString();
         System.out.print("Phone Number: ");
         while(true) {
             number = scan.next();

@@ -3,6 +3,7 @@ package Data;
 import Persons.*;
 import java.util.ArrayList;
 import java.util.Scanner;
+import interfaces.*;
 
 public class Gym {
     public String Name;
@@ -106,9 +107,9 @@ public class Gym {
         String username;
         String password;
         System.out.print("Username: ");
-        username = scan.next();
+        username = validatingInputs.inputString();
         System.out.print("Password: ");
-        password = scan.next();
+        password = validatingInputs.inputString();
         for (Admin admin : Admins) {
             if (admin.Username.equals(username) && admin.Password.equals(password))
                 return admin;
