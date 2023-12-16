@@ -11,7 +11,7 @@ public class Customer extends Person {
 
   public ArrayList<Subscription> subscriptions = new ArrayList<>();
 
-  public Data.Subscription subscription;
+  public Subscription subscription;
 
   /**
    * create customer object
@@ -78,8 +78,14 @@ public class Customer extends Person {
     System.out.println("Address  : " + Address ) ;
     System.out.println("PhoneNumber  : " + PhoneNumber ) ;
     System.out.println("Email  : " + Email );
-    System.out.println("uname  : " + UserName );
-    System.out.println("pass  : " + PassWord );
+  }
+
+  public Coach getCoach(){
+    return subscription.getCoach(subscription.coachID);
+  }
+
+  public MemberShipPlan getPlan(){
+    return subscription.getPlan();
   }
 
 }

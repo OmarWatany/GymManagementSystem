@@ -160,8 +160,7 @@ public class Main {
                                 // subscription-date function
                                 String sdate;
                                 System.out.println("  ");
-                                System.out
-                                        .println("Type the Date you wish to display all subscribed customers during: YYYY-MM-DD ");
+                                System.out .println("Type the Date you wish to display all subscribed customers during: YYYY-MM-DD ");
                                 sdate = scan.next();
                                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                                 try {
@@ -196,11 +195,53 @@ public class Main {
                 }
             } else if (key == 2) {
                 // customer loop
-                Customer customer = null;
                 System.out.println("*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-");
-                customer = (Customer) signIn("customer");
-//                if (customer == null)
-//                    continue;
+                Customer customer = (Customer) signIn("customer");
+                if (customer == null)
+                    continue;
+                while(key != 6){
+                    System.out.println("1. Get coach info");
+                    System.out.println("2. Display Gym Equipment.");
+                    System.out.println("3. Display membership plan details.");
+                    System.out.println("4. Display the in-body information at a specific date.");
+                    System.out.println("5. Display how many kilos need to be reduced according to inbody");
+                    System.out.println("6. Sign Out");
+                    key = scan.nextInt();
+                    switch (key){
+                        case 1:
+                            customer.getCoach().getInfo();
+                            break;
+                        case 2:
+                            gym.displayEquipments();
+                            break;
+                        case 3:
+                            try {
+                                customer.getPlan().displayInfo();
+                            } catch (NullPointerException e){
+                                System.out.println("error " + e);
+                                continue;
+                            }
+                            break;
+                        case 4:
+                            System.out .print("Data YYYY-MM-DD :  ");
+                            String sdate = scan.next();
+                            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                            try {
+                                Date Date = dateFormat.parse(sdate);
+                                customer.get_InBody(Date);
+                            } catch(NullPointerException e){
+                                System.out.println("Date " + e);
+                                continue;
+                            } catch (ParseException e) {
+                                System.out.println("Invalid format" + e);
+                                continue;
+                            }
+                            break;
+                        case 5:
+                            customer.inBodies.getLast().getWeightControl(customer);
+                            break;
+                    }
+                }
             } else if (key == 3) {
                 Coach coach;
                 // coach loop
@@ -272,7 +313,7 @@ public class Main {
                 continue;
             }
         }
-//        writeCSVFile(gym);
+        writeCSVFile(gym);
         scan.close();
     }
 
@@ -304,7 +345,7 @@ public class Main {
         } catch (IOException e) {
             System.out.println("dCouldn't read file");
         } catch (ArrayIndexOutOfBoundsException c) {
-            // TODO: handle exception
+            System.out.println("array ex"+c);
         } catch (ParseException e) {
             System.out.println("date in the wrong format. should be yyyy-MM-dd");
         } catch(NumberFormatException e){
@@ -349,44 +390,41 @@ public class Main {
         // Read customers into gym's arraylist
         try {
             // parsing a CSV file into Scanner class constructor
-            Scanner sc = new Scanner(new File("./src/files/Customer.csv"));
-            sc.useDelimiter(","); // sets the delimiter pattern
-            while (sc.hasNext()) // returns a boolean value
+            String line = "";
+            BufferedReader br = new BufferedReader(new FileReader("./src/files/Customer.csv"));
+            String[] values ;
+            while ((line = br.readLine()) != null && line.length() > 1) // returns a boolean value
             {
-                String trimmed_string = sc.next().trim();
-                int customerId = Integer.parseInt(trimmed_string);
-                String customerName = sc.next();
-                String gender = sc.next();
-                String address = sc.next();
-                String number = sc.next();
-                String email = sc.next();
-                String uname = sc.next();
-                String pass = sc.next();
+                values = line.split(",");
+                int customerId = Integer.parseInt(values[1]);
+                String customerName = values[2];
+                String gender =       values[3];
+                String address =      values[4];
+                String number =       values[5];
+                String email =        values[6];
+                String uname =        values[7];
+                String pass =         values[8];
 
                 Subscription subscription = null;
-                try {
-                    for (Subscription sub : Gym.Subscriptions) {
-                        if (sub.customerID == customerId)
-                            subscription = sub;
-                    }
-                } catch (NullPointerException e) {
-                    System.out.println("Couldn't find subscription");
+                for (Subscription sub : Gym.Subscriptions) {
+                    if (sub.customerID == customerId)
+                        subscription = sub;
                 }
 
                 Customer customer = new Customer(customerId, customerName, gender, address, number, email,
                         subscription, uname, pass);
+
                 Gym.Customers.add(customer);
-
             }
-            sc.close(); // closes the scanner
-            // br.close();
-
+             br.close();
         } catch ( FileNotFoundException e) {
             System.out.println("Couldn't read customer file");
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("ToDo sub array e");
         } catch(NumberFormatException e){
             System.out.println("customers file " + e);
+        } catch (IOException e) {
+            System.out.println("customer io : " + e);
+        } catch (ArrayIndexOutOfBoundsException e){
+            System.out.println("Array out of boundry" + e);
         }
 
         // Read Inbodies into customers' arraylist
@@ -419,7 +457,8 @@ public class Main {
             System.out.println("Couldn't read inbody file" + e);
         } catch (IOException e) {
             System.out.println("inbody io : " + e);
-        } catch (ArrayIndexOutOfBoundsException c) {
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println(" array out of boundry : " + e);
         } catch (ParseException e) {
             System.out.println("date in the wrong format. should be yyyy-MM-dd");
         } catch(NumberFormatException e){
@@ -523,6 +562,7 @@ public class Main {
         try {
             FileWriter csvWriter = new FileWriter("./src/files/Customer.csv");
             for (int i = 0; i < Gym.Customers.size(); i++) {
+                csvWriter.append(",");
                 csvWriter.append(String.valueOf(Gym.Customers.get(i).ID));
                 csvWriter.append(",");
                 csvWriter.append(Gym.Customers.get(1).Name);

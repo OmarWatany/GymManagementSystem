@@ -128,7 +128,7 @@ public class InBody {
      *  based on the inbody information
      * @param customer
      */
-    public void GetInBodyWeightControl(Customer customer) {
+    public void getWeightControl(Customer customer) {
         setStandards(customer);
         DecimalFormat df = new DecimalFormat();
         df.setMaximumFractionDigits(2);

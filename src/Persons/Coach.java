@@ -19,10 +19,10 @@ public class Coach extends Person implements filewriting {
     public String getAllAttributes() {
         String attributes = ","+String.valueOf(ID) + "," + Name + "," + gender + "," + Address + "," + PhoneNumber + ","
                 + Email +","+workingHours+","+salary+ "," + UserName + "," + PassWord;
-        for (Customer customer : Customers) {
-            attributes = attributes + ","+customer.ID;
-
-        }
+//        for (Customer customer : Customers) {
+//            attributes = attributes + ","+customer.ID;
+//
+//        }
         return attributes;
     }
 
@@ -78,4 +78,12 @@ public class Coach extends Person implements filewriting {
             }
         }
     }
+
+    public void getInfo(){
+        System.out.println("Name : " + Name);
+        System.out.println("Address  : " + Address ) ;
+        System.out.println("PhoneNumber  : " + PhoneNumber ) ;
+        System.out.println("Working Hours : " + workingHours);
+    }
+
 }

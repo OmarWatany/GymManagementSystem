@@ -30,4 +30,12 @@ public class MemberShipPlan {
         if (numOfMonthsRegistered >= 3)
             price *= 0.75F;
     }
+
+    public void displayInfo(){
+        System.out.println("Start Date : "+ startDate.toString());
+        System.out.println("Days per week : " + monthlyPlan);
+        System.out.println("Months registered : " + numOfMonthsRegistered);
+        System.out.println("Price : " + price);
+
+    }
 }

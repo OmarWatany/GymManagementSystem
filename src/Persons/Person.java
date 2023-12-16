@@ -1,6 +1,11 @@
 package Persons;
 
 
+import Data.Gym;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
 /**
  * basic information about every person in the gym
  */
