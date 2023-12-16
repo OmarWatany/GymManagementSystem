@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class Gym {
     public String Name;
     public String Address;
-    public int PhoneNumber;
+    public String PhoneNumber;
     public static ArrayList<Coach> Coaches = new ArrayList<>();
     public static ArrayList<Subscription> Subscriptions = new ArrayList<>();
     public static ArrayList<Equipment> Equipments = new ArrayList<>();
@@ -16,7 +16,7 @@ public class Gym {
     public static ArrayList<MemberShipPlan> MemberShipPlans = new ArrayList<>();
     Scanner scan = new Scanner(System.in);
 
-    public Gym(String name, String address, int num) {
+    public Gym(String name, String address, String num) {
         Name = name;
         Address = address;
         PhoneNumber = num;
@@ -36,7 +36,7 @@ public class Gym {
 
     }
 
-    public void displayCoaches() {
+    public static void displayCoaches() {
         System.out.println("Coaches:");
         for (Coach coach : Coaches) {
             System.out.println(coach.ID + "  " + coach.Name);
