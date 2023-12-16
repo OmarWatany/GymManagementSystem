@@ -21,9 +21,9 @@ public class Subscription implements filewriting {
         return attributes;
     }
 
-    public Customer getCustomer(int id) {
+    public Customer getCustomer() {
         for (Customer cstmr : Gym.Customers) {
-            if (cstmr.getId() == id)
+            if (cstmr.getId() == customerID)
                 return cstmr;
         }
         return null;
@@ -33,9 +33,9 @@ public class Subscription implements filewriting {
         return membershipPlan;
     }
 
-    public Coach getCoach(int id) {
+    public Coach getCoach() {
         for (Coach coach : Gym.Coaches) {
-            if (coach.getId() == id)
+            if (coach.getId() == coachID)
                 return coach;
         }
         return null;

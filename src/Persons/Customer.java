@@ -2,7 +2,11 @@ package Persons;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.NoSuchElementException;
+import java.util.concurrent.TimeUnit;
+
 import Data.*;
+import interfaces.*;
 
 public class Customer extends Person {
   public Date lastInBodydate;
@@ -34,7 +38,12 @@ public class Customer extends Person {
   }
 
   public int getId() {
-    return ID;
+    try{
+      return ID;
+    } catch (NullPointerException e){
+      System.out.println("there is no customer " + e);
+      return 0;
+    }
   }
 
   public void setSubscription(Boolean f) {
@@ -81,11 +90,50 @@ public class Customer extends Person {
   }
 
   public Coach getCoach(){
-    return subscription.getCoach(subscription.coachID);
+    return subscription.getCoach();
   }
 
   public MemberShipPlan getPlan(){
     return subscription.getPlan();
+  }
+
+  /**
+   * adds a new Inbody to the customer inbodies list
+   * it use the date when it runs.
+   */
+  public void addInBody(){
+    float height, fatMass, minerals, bodyWater, protein;
+    System.out.print("Enter height : "  );
+    height   = validatingInputs.inputFloat();
+    System.out.print("Enter fatMass : " );
+    fatMass  =validatingInputs.inputFloat();
+    System.out.print("Enter minerals : " );
+    minerals = validatingInputs.inputFloat();
+    System.out.print("Enter bodyWater : ");
+    bodyWater= validatingInputs.inputFloat();
+    System.out.print("Enter protein : ");
+    protein  = validatingInputs.inputFloat();
+    Date date = new Date();
+    long diffinMillis, diff;
+    if( inBodies.size() > 0 ){
+        Date firstDate = inBodies.get(inBodies.size() -1 ).getDate();
+        diffinMillis = date.getTime() - firstDate.getTime();
+        diff = TimeUnit.DAYS.convert(diffinMillis, TimeUnit.MILLISECONDS);
+    } else{
+        diff = 31;
+    }
+
+    if(diff > 30){
+      try{
+        InBody newInBody = new InBody(ID,date,height,fatMass,minerals,bodyWater,protein );
+        inBodies.add(newInBody);
+      } catch (NoSuchElementException e){
+        System.out.println("error " + e);
+      }
+    } else{
+      System.out.println("Can't add two inbodies in one month");
+    }
+
   }
 
 }

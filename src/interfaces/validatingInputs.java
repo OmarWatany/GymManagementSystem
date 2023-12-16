@@ -19,17 +19,33 @@ public interface validatingInputs {
         }
         return key;
     }
-    static String inputAddress(){
+
+    static float inputFloat(){
         Scanner scan = new Scanner(System.in);
-        String address;
+        float key;
         while(true){
-        address = scan.nextLine();
-            if (address.contains(",")){
-                System.out.println("Address can't contain \",\" inside  , please enter it again");
+            try {
+                key = scan.nextFloat();
+                break;
+            }
+            catch (InputMismatchException e){
+                System.out.println("Please enter a number");
+            }
+        }
+        return key;
+    }
+
+    static String inputString(){
+        Scanner scan = new Scanner(System.in);
+        String line;
+        while(true){
+        line = scan.nextLine();
+            if (line.contains(",")){
+                System.out.println("can't use \",\" , please enter again");
             }
             else break;
         }
-        return address;
+        return line;
     }
 
 }
