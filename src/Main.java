@@ -2,31 +2,32 @@ import java.util.*;
 
 import Data.*;
 import Persons.*;
+import interfaces.*;
 
 import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-public class Main {
+public class Main implements validatingInputs {
 
     static Scanner scan = new Scanner(System.in);
 
     public static void main(String[] args)  {
         Scanner scan = new Scanner(System.in);
-        Gym gym = new Gym("Elgym Gym", "5 ali st ", 69);
+        Gym gym = new Gym("El Gym ", "5 Ali St ", "35836837");
         readFile(gym);
 
         // Main loop
         gym.DisplayGymInfo();
 
         while (true) {
+            int key;
             System.out.println("  Sign in as:  ");
             System.out.println("1. Admin  ");
             System.out.println("2. Customer  ");
             System.out.println("3. Coach  ");
             System.out.println("4. Exit  ");
-            int key;
-            key = scan.nextInt();
+            key = validatingInputs.inputInteger();
             if (key == 1) {
                 // admin loop
                 Admin admin = gym.signinadmin();
@@ -46,52 +47,69 @@ public class Main {
                     System.out.println("3. Equipments  ");
                     System.out.println("4. Other  ");
                     System.out.println("5. Back  ");
-                    key = scan.nextInt();
+                    System.out.println("0. Exit");
+                    key =validatingInputs.inputInteger();
                     if (key == 1) {
                         // customer option
                         while (true) {
                             System.out.println("*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-");
-                            gym.displayCustomers();
-                            System.out.println("1. Add Customer  ");
-                            System.out.println("2. Delete Customer  ");
-                            System.out.println("3. Back  ");
-                            key = scan.nextInt();
-                            if (key == 1) {
+                            System.out.println("1. Display Customers");
+                            System.out.println("2. Add Customer  ");
+                            System.out.println("3. Delete Customer  ");
+                            System.out.println("4. Back  ");
+                            System.out.println("0. Exit");
+                            key =validatingInputs.inputInteger();
+                            if (key==1){
+                                gym.displayCustomers();
+                            }
+                            else if (key == 2) {
                                 // add function
                                 admin.AddCustomer();
-                            } else if (key == 2) {
+                            } else if (key == 3) {
                                 // delete function
                                 System.out.println("Enter customer ID that you would like to delete: ");
-                                key = scan.nextInt();
+                                key =validatingInputs.inputInteger();
                                 admin.deleteCustomer(key);
-                            } else if (key == 3) {
+                            } else if (key == 4) {
                                 // exit or back
                                 break;
+                            } else if (key==0) {
+                                writeCSVFile(gym);
+                                System.exit(0);
                             } else {
                                 System.out.println("Invalid entry, Try again.");
-                                continue;
+
                             }
                         }
                     } else if (key == 2) {
                         // Coaches option
                         while (true) {
                             System.out.println("*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-");
-                            gym.displayCoaches();
-                            System.out.println("1. Add Coach  ");
-                            System.out.println("2. Delete Coach  ");
-                            System.out.println("3. Back  ");
-                            key = scan.nextInt();
-                            if (key == 1) {
+                            System.out.println("1. Display Coaches");
+                            System.out.println("2. Add Coach  ");
+                            System.out.println("3. Delete Coach  ");
+                            System.out.println("4. Back  ");
+                            System.out.println("0. Exit");
+                            key = validatingInputs.inputInteger();
+                            if (key==1){
+                                Gym.displayCoaches();
+                            } else if (key == 2) {
                                 // add function
                                 admin.AddCoach();
-                            } else if (key == 2) {
-                                // delete function
-                                System.out.println("Enter coach ID that you would like to delete: ");
-                                key = scan.nextInt();
-                                admin.deleteCoach(key);
                             } else if (key == 3) {
+                                // delete function
+                                boolean found=false;
+                                System.out.println("Enter coach ID that you would like to delete: ");
+                                while(!found){
+                                key =validatingInputs.inputInteger();
+                                found=admin.deleteCoach(key);
+                                }
+                            } else if (key == 4) {
                                 // exit or back
                                 break;
+                            } else if (key==0) {
+                                writeCSVFile(gym);
+                                System.exit(0);
                             } else {
                                 System.out.println("Invalid entry, Try again.");
                                 continue;
@@ -106,7 +124,8 @@ public class Main {
                             System.out.println("1. Add Equipment  ");
                             System.out.println("2. Delete Equipment  ");
                             System.out.println("3. Back  ");
-                            key = scan.nextInt();
+                            System.out.println("0. Exit");
+                            key =validatingInputs.inputInteger();
                             if (key == 1) {
                                 // add function
                                 admin.AddEquipment();
@@ -114,12 +133,15 @@ public class Main {
                                 // delete function
                                 String skey;
                                 System.out.println("Enter Equipment name that you would like to delete: ");
-                                skey = scan.next();
+                                skey = scan.nextLine();
                                 admin.deleteEquipment(skey);
                             } else if (key == 3) {
                                 // exit or back
                                 break;
-                            } else {
+                            }else if (key==0) {
+                                writeCSVFile(gym);
+                                System.exit(0);
+                            }  else {
                                 System.out.println("Invalid entry, Try again.");
                                 continue;
                             }
@@ -136,20 +158,21 @@ public class Main {
                             System.out.println("4. Show total income ");
                             System.out.println("5. Add an Admin ");
                             System.out.println("6. Back");
-                            key = scan.nextInt();
+                            System.out.println("0. Exit");
+                            key =validatingInputs.inputInteger();
                             if (key == 1) {
                                 // history function
                                 gym.displayCustomers();
                                 System.out.println("  ");
                                 System.out.println("Type the ID of the customer you wish to display their subscription history: ");
-                                key = scan.nextInt();
+                                key =validatingInputs.inputInteger();
                                 admin.show_sub_history(key);
                             } else if (key == 2) {
                                 // customer-coach function
-                                gym.displayCoaches();
+                                Gym.displayCoaches();
                                 System.out.println("  ");
                                 System.out.println("Type the if of the coach you wish to display their assigned customers: ");
-                                int id = scan.nextInt();
+                                int id =validatingInputs.inputInteger();
                                 Coach coach = null;
                                 while(coach == null){
                                     coach = gym.getCoach(id);
@@ -161,7 +184,7 @@ public class Main {
                                 String sdate;
                                 System.out.println("  ");
                                 System.out .println("Type the Date you wish to display all subscribed customers during: YYYY-MM-DD ");
-                                sdate = scan.next();
+                                sdate = scan.nextLine();
                                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                                 try {
                                     Date startDate = dateFormat.parse(sdate);
@@ -180,7 +203,10 @@ public class Main {
                             } else if (key == 6) {
                                 // exit or back
                                 break;
-                            } else {
+                            }else if (key==0) {
+                                writeCSVFile(gym);
+                                System.exit(0);
+                            }  else {
                                 System.out.println("Invalid entry, Try again.");
                                 continue;
                             }
@@ -188,9 +214,11 @@ public class Main {
                     } else if (key == 5) {
                         // exit or back
                         break;
-                    } else {
+                    }else if (key==0) {
+                        writeCSVFile(gym);
+                        System.exit(0);
+                    }  else {
                         System.out.println("Invalid entry, Try again.");
-                        continue;
                     }
                 }
             } else if (key == 2) {
@@ -204,9 +232,10 @@ public class Main {
                     System.out.println("2. Display Gym Equipment.");
                     System.out.println("3. Display membership plan details.");
                     System.out.println("4. Display the in-body information at a specific date.");
-                    System.out.println("5. Display how many kilos need to be reduced according to inbody");
+                    System.out.println("5. Display how many kilos need to be reduced according to inBody");
                     System.out.println("6. Sign Out");
-                    key = scan.nextInt();
+                    System.out.println("0. Exit");
+                    key =validatingInputs.inputInteger();
                     switch (key){
                         case 1:
                             customer.getCoach().getInfo();
@@ -240,6 +269,10 @@ public class Main {
                         case 5:
                             customer.inBodies.getLast().getWeightControl(customer);
                             break;
+                        case 0:
+                            writeCSVFile(gym);
+                            System.exit(0);
+                            break;
                     }
                 }
             } else if (key == 3) {
@@ -258,7 +291,8 @@ public class Main {
                     System.out.println("3. Get customer info ");
                     System.out.println("4. show list of male/female customers");
                     System.out.println("5. sign out");
-                    key = scan.nextInt();
+                    System.out.println("0. Exit");
+                    key =validatingInputs.inputInteger();
                     Customer customer;
                     switch (key) {
                         case 1:
@@ -267,7 +301,7 @@ public class Main {
                         case 2:
                             System.out.print("Enter id: ");
                             try {
-                                key = scan.nextInt();
+                                key =validatingInputs.inputInteger();
                             } catch (InputMismatchException e) {
                                 System.out.println("Please Enter valid number");
                                 continue;
@@ -282,7 +316,7 @@ public class Main {
                         case 3:
                             System.out.print("Enter id: ");
                             try {
-                                key = scan.nextInt();
+                                key =validatingInputs.inputInteger();
                             } catch (InputMismatchException e) {
                                 System.out.println("Please Enter valid number");
                                 continue;
@@ -296,13 +330,15 @@ public class Main {
                             break;
                         case 4:
                             System.out.print("Gender : ");
-                            coach.listCustomersByGender(scan.next());
+                            coach.listCustomersByGender(scan.nextLine());
                             break;
                         case 5:
                             running = false;
                             break;
-                        default:
-                            continue;
+                        case 0:
+                            writeCSVFile(gym);
+                            System.exit(0);
+                            break;
                     }
                 }
             } else if (key == 4) {
@@ -310,7 +346,6 @@ public class Main {
                 break;
             } else {
                 System.out.println("Invalid entry, Try again.");
-                continue;
             }
         }
         writeCSVFile(gym);
@@ -374,7 +409,7 @@ public class Main {
 
                 Subscription subscription = new Subscription(customerID, coachID, membershipPlan);
 
-                gym.Subscriptions.add(subscription);
+                Gym.Subscriptions.add(subscription);
             }
             br.close();
         } catch (FileNotFoundException e) {
@@ -684,7 +719,7 @@ public class Main {
         System.out.print("Username: ");
         username = scan.next();
         System.out.print("Password: ");
-        password = scan.next();
+        password = scan.nextLine();
         if (type.equals("customer")) {
             for (Customer cstmr : Gym.Customers) {
                 // there is a problem with the password check

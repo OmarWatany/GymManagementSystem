@@ -4,11 +4,12 @@ import java.util.Scanner;
 import Data.*;
 import java.util.Iterator;
 import java.util.Date;
+import interfaces.*;
 
 /**
  * Gym Administrator who can access the data and modify it
  */
-public class Admin {
+public class Admin implements validatingInputs  {
     public String Username;
     public String Password;
 
@@ -47,17 +48,30 @@ public class Admin {
         Subscription sub;
         System.out.println("  Enter Customer details");
         System.out.print("ID: ");
-        id = scan.nextInt();
+        while(true){
+            boolean found=false;
+            id =validatingInputs.inputInteger();
+            for (Customer customer: Gym.Customers){
+                if (customer.ID==id){
+                    found=true;
+                    break;
+                }
+            }
+            if (found){
+                System.out.println("This ID is taken, please enter another one");
+            }
+            else break;
+        }
         System.out.print("Name: ");
         name = scan.next();
         while (true) {
             System.out.print("MALE or FEMALE: ");
             String Gcheck;
             Gcheck = scan.next();
-            if (Gcheck.equals("male") || Gcheck.equals("MALE")) {
+            if (Gcheck.equalsIgnoreCase("male") || Gcheck.equalsIgnoreCase("MALE")) {
                 gender = "MALE";
                 break;
-            } else if (Gcheck.equals("female") || Gcheck.equals("FEMALE")) {
+            } else if (Gcheck.equalsIgnoreCase("female") || Gcheck.equalsIgnoreCase("FEMALE")) {
                 gender = "FEMALE";
                 break;
             } else {
@@ -66,14 +80,35 @@ public class Admin {
             }
         }
         System.out.print("Address: ");
-        address = scan.next();
+        address = validatingInputs.inputAddress();
         System.out.print("Phone Number: ");
-        number = scan.next();
+        while(true) {
+            number = scan.next();
+            if (number.matches("[0-9]+")){
+                break;
+            }
+            else{
+                System.out.println("Please enter a valid phone number");
+            }
+        }
         System.out.print("email: ");
         email = scan.next();
-        System.out.print("UserName: ");
-        uname = scan.next();
-        System.out.print("PassWord: ");
+        while(true){
+            boolean found=false;
+            System.out.print("UserName: ");
+            uname = scan.next();
+            for (Customer customer: Gym.Customers){
+                if (customer.UserName.equals(uname)){
+                    found=true;
+                    break;
+                }
+            }
+            if (found){
+                System.out.println("This Username  is taken, please enter another one");
+            }
+            else break;
+        }
+        System.out.print("Password: ");
         pass = scan.next();
         sub = getsub(id);
         Gym.Customers.add(new Customer(id, name, gender, address, number, email, sub,uname,pass));
@@ -103,11 +138,25 @@ public class Admin {
      */
     public Subscription getsub(int id) {
         int cid;
-        System.out.println("Enter subscription detail... ");
+        System.out.println("Enter subscription details... ");
+        Gym.displayCoaches();
         System.out.println("Coach ID: ");
-        cid = scan.nextInt();
+        while(true){
+            boolean found=false;
+            cid =validatingInputs.inputInteger();
+            for (Coach coach: Gym.Coaches){
+                if (coach.ID==cid){
+                    found=true;
+                    break;
+                }
+            }
+            if (!found){
+                System.out.println("There is no Coach with this ID , please enter another ID");
+            }
+            else break;
+        }
         Date date = new Date();
-        MemberShipPlan mem = new MemberShipPlan(32,date,2,3,2342);
+        MemberShipPlan mem = new MemberShipPlan(7,date,2,3,2342);
         Subscription newsub = new Subscription(id, cid,mem);
         Gym.Subscriptions.add(newsub);
         return newsub;
@@ -130,17 +179,30 @@ public class Admin {
         int sal;
         System.out.println("  Enter Coach details");
         System.out.print("ID: ");
-        id = scan.nextInt();
+        while(true){
+            boolean found=false;
+            id =validatingInputs.inputInteger();
+            for (Coach coach: Gym.Coaches){
+                if (coach.ID==id){
+                    found=true;
+                    break;
+                }
+            }
+            if (found){
+                System.out.println("This ID is taken, please enter another one");
+            }
+            else break;
+        }
         System.out.print("Name: ");
         name = scan.next();
         while (true) {
-            System.out.print("MALE or FEMALE");
+            System.out.print("MALE or FEMALE: ");
             String Gcheck;
             Gcheck = scan.next();
-            if (Gcheck.equals("male") || Gcheck.equals("MALE")) {
+            if (Gcheck.equalsIgnoreCase("male") || Gcheck.equalsIgnoreCase("MALE")) {
                 gender = "MALE";
                 break;
-            } else if (Gcheck.equals("female") || Gcheck.equals("FEMALE")) {
+            } else if (Gcheck.equalsIgnoreCase("female") || Gcheck.equalsIgnoreCase("FEMALE")) {
                 gender = "FEMALE";
                 break;
             } else {
@@ -149,18 +211,40 @@ public class Admin {
             }
         }
         System.out.print("Address: ");
-        address = scan.next();
+        address = validatingInputs.inputAddress();
         System.out.print("Phone Number: ");
-        number = scan.next();
+        while(true) {
+            number = scan.next();
+            if (number.matches("[0-9]+")){
+                break;
+            }
+            else{
+                System.out.println("Please enter a valid phone number");
+            }
+        }
         System.out.print("email: ");
         email = scan.next();
-        System.out.print("Working Hours: ");
-        whours = scan.nextInt();
+        System.out.print("Working Hours Per week: ");
+        whours =validatingInputs.inputInteger();
         System.out.print("Salary: ");
-        sal = scan.nextInt();
-        System.out.print("UserName: ");
-        uname = scan.next();
-        System.out.print("PassWord: ");
+        sal =validatingInputs.inputInteger();
+        while(true){
+            boolean found=false;
+            System.out.print("UserName: ");
+            uname = scan.next();
+            for (Coach coach: Gym.Coaches){
+                if (coach.UserName.equals(uname)){
+                    found=true;
+                    break;
+                }
+            }
+            if (found){
+                System.out.println("This Username  is taken, please enter another one");
+            }
+            else break;
+        }
+
+        System.out.print("Password: ");
         pass = scan.next();
         Gym.Coaches.add(new Coach(id, name, gender, address, number, email, whours, sal,uname,pass));
         System.out.println("Coach record added.");
@@ -170,16 +254,22 @@ public class Admin {
      * delete coach by id
      * @param coachId
      */
-    public void deleteCoach(int coachId) {
+    public boolean deleteCoach(int coachId) {
         Iterator<Coach> iterator = Gym.Coaches.iterator();
+        boolean found=false;
         while (iterator.hasNext()) {
             Coach coach = iterator.next();
             if (coach.getId() == coachId) {
+                found=true;
                 iterator.remove(); // Remove the customer with the matching ID
                 System.out.println("Coach with ID " + coachId + " record deleted.");
-                return; // Assuming each ID is unique, we can exit the loop after deletion
+                return true; // Assuming each ID is unique, we can exit the loop after deletion
             }
         }
+        if (!found){
+            System.out.println("There is no coach with this ID, please enter another ID");
+        }
+        return false;
     }
 
     /**
@@ -191,11 +281,11 @@ public class Admin {
         String category;
         System.out.println("  Enter Equipment details");
         System.out.print("Equipment name: ");
-        name = scan.next();
+        name = scan.nextLine();
         System.out.print("category: ");
-        category = scan.next();
+        category = scan.nextLine();
         System.out.print("Quantity: ");
-        quantity = scan.nextInt();
+        quantity =validatingInputs.inputInteger();
         Gym.Equipments.add(new Equipment(name, category, quantity));
         System.out.println("Equipment record added.");
     }
