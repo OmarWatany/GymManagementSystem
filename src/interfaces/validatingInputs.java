@@ -23,7 +23,7 @@ public interface validatingInputs {
         Scanner scan = new Scanner(System.in);
         String address;
         while(true){
-        address = scan.next();
+        address = scan.nextLine();
             if (address.contains(",")){
                 System.out.println("Address can't contain \",\" inside  , please enter it again");
             }
