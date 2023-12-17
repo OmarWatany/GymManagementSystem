@@ -377,7 +377,7 @@ public class Admin implements validatingInputs  {
     }
 
     public void display_income() {
-        int income;
+        float income;
         income = Gym.gettotalprice() - Gym.getTotalSalary();
         System.out.println("total income = " + income);
     }

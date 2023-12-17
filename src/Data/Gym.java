@@ -69,16 +69,16 @@ public class Gym {
         System.out.println("  ");
     }
 
-    public static int gettotalprice() {
-        int totalprice = 0;
+    public static float gettotalprice() {
+        float totalprice = 0;
         for (Subscription subscription : Subscriptions) {
-            // totalprice += subscription.price;
+             totalprice += subscription.membershipPlan.price;
         }
         return totalprice;
     }
 
-    public static int getTotalSalary() {
-        int totalsalary = 0;
+    public static float getTotalSalary() {
+        float totalsalary = 0;
         for (Coach coach : Coaches) {
             totalsalary += coach.salary;
             ;
