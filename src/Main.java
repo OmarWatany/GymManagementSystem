@@ -154,7 +154,7 @@ public class Main implements validatingInputs {
                             // System.out.println(" ");
                             System.out.println("1. Show subscription history of a specific customer ");
                             System.out.println("2. Show all customers assigned to a specific Coach ");
-                            System.out.println("3. Show all susbcribed customers at a specific Date ");
+                            System.out.println("3. Show all subscribed customers at a specific Date ");
                             System.out.println("4. Show total income ");
                             System.out.println("5. Add an Admin ");
                             System.out.println("6. Back");
@@ -277,7 +277,7 @@ public class Main implements validatingInputs {
                 while (running) {
                     System.out.println("*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-");
                     System.out.println("  What would you like to do?");
-                    System.out.println("1. Print my customers ");
+                    System.out.println("1. Display my customers ");
                     System.out.println("2. Get customer inbody history");
                     System.out.println("3. Get customer info ");
                     System.out.println("4. show list of male/female customers");
