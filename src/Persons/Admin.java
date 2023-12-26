@@ -110,9 +110,16 @@ public class Admin implements validatingInputs  {
         }
         System.out.print("Password: ");
         pass = validatingInputs.inputString();
-        sub = getsub(id);
-        Coach coach = sub.getCoach();
-        Customer newCustomer =new Customer(id, name, gender, address, number, email, sub,uname,pass);
+
+        Coach coach = null;
+        while (true) {
+            sub = getsub(id);
+            coach = sub.getCoach();
+            if(coach.Customers.size() <= 10 )
+                break;
+            System.out.println("Coach not available ");
+        }
+        Customer newCustomer = new Customer(id, name, gender, address, number, email, sub, uname, pass);
         Gym.Customers.add(newCustomer);
         coach.Customers.add(newCustomer);
         System.out.println("Customer record added.");

@@ -346,7 +346,7 @@ public class Main implements validatingInputs {
                 System.out.println("Invalid entry, Try again.");
             }
         }
-        //writeCSVFile(gym);
+        writeCSVFile(gym);
         scan.close();
     }
 
