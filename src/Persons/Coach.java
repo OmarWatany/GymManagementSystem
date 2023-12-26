@@ -30,8 +30,9 @@ public class Coach extends Person implements filewriting {
         workingHours = wh;
     }
 
-    public void getWorkingHours() {
+    public int getWorkingHours() {
         System.out.println(workingHours);
+        return workingHours;
     }
 
     public void listCustomers() {

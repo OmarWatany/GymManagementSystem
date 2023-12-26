@@ -64,7 +64,7 @@ public class Main implements validatingInputs {
                                 admin.AddCustomer();
                             }
                             else if (key == 2) {
-                                // edit function
+                                admin.Edit();
                             } else if (key == 3) {
                                 // delete function
                                 System.out.println("Enter customer ID that you would like to delete: ");
@@ -83,19 +83,20 @@ public class Main implements validatingInputs {
                         }
                     } else if (key == 2) {
                         // Coaches option
+                        System.out.println("*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-");
+                        Gym.displayCoaches();
                         while (true) {
-                            System.out.println("*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-");
-                            System.out.println("1. Display Coaches");
-                            System.out.println("2. Add Coach  ");
+                            System.out.println("1. Add Coach");
+                            System.out.println("2.  Edit Coach");
                             System.out.println("3. Delete Coach  ");
                             System.out.println("4. Back  ");
                             System.out.println("0. Exit");
                             key = validatingInputs.inputInteger();
                             if (key==1){
-                                Gym.displayCoaches();
-                            } else if (key == 2) {
                                 // add function
                                 admin.AddCoach();
+                            } else if (key == 2) {
+                               admin.edit_coaches();
                             } else if (key == 3) {
                                 // delete function
                                 boolean found=false;
@@ -122,20 +123,26 @@ public class Main implements validatingInputs {
                             System.out.println("*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-");
                             gym.displayEquipments();
                             System.out.println("1. Add Equipment  ");
-                            System.out.println("2. Delete Equipment  ");
-                            System.out.println("3. Back  ");
+                            System.out.println("2. Edit Equipment  ");
+                            System.out.println("3. Delete Equipment  ");
+                            System.out.println("4. Back  ");
                             System.out.println("0. Exit");
                             key =validatingInputs.inputInteger();
                             if (key == 1) {
                                 // add function
                                 admin.AddEquipment();
-                            } else if (key == 2) {
+                            }
+                            if (key == 2) {
+                                // add function
+                                admin.edit_equipments();
+                            }
+                            else if (key == 3) {
                                 // delete function
                                 String skey;
                                 System.out.println("Enter Equipment name that you would like to delete: ");
                                 skey = scan.nextLine();
                                 admin.deleteEquipment(skey);
-                            } else if (key == 3) {
+                            } else if (key == 4) {
                                 // exit or back
                                 break;
                             }else if (key==0) {

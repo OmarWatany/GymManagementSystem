@@ -5,6 +5,7 @@ import Persons.Customer;
 import interfaces.filewriting;
 
 public class Subscription implements filewriting {
+    public static String CoachID;
     public int customerID, coachID;
     MemberShipPlan membershipPlan;
 
